@@ -1,0 +1,223 @@
+/* Folha de estilos moderna para a aplicação JavaFX - Padrão Verde Institucional Unoeste */
+
+.root {
+    -fx-font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #f4f6f5;
+}
+
+/* Barra Superior - Verde Escuro Unoeste */
+.barra-cabecalho {
+    -fx-background-color: #0b3b1e;
+    -fx-padding: 16px 24px;
+    -fx-alignment: center-left;
+    -fx-border-color: #006729;
+    -fx-border-width: 0 0 3px 0;
+}
+
+.titulo-aplicacao {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.subtitulo-aplicacao {
+    -fx-font-size: 12px;
+    -fx-text-fill: #a7f3d0;
+}
+
+.badge-status {
+    -fx-background-color: #042f1a;
+    -fx-text-fill: #34d399;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 14px;
+    -fx-background-radius: 20px;
+    -fx-border-color: #10b981;
+    -fx-border-radius: 20px;
+}
+
+/* Painéis e Cards */
+.card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8e5;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 103, 41, 0.05), 6, 0, 0, 2);
+}
+
+.card-titulo {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #064e28;
+}
+
+.card-subtitulo {
+    -fx-font-size: 11px;
+    -fx-text-fill: #52796f;
+}
+
+/* Indicadores de Métricas (KPIs) */
+.kpi-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d1fae5;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 16px;
+    -fx-alignment: center-left;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-border-color: #d1fae5 #d1fae5 #d1fae5 #006729;
+}
+
+.kpi-rotulo {
+    -fx-font-size: 11px;
+    -fx-text-fill: #047857;
+    -fx-font-weight: bold;
+}
+
+.kpi-valor {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #064e28;
+}
+
+.kpi-destaque {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #006729;
+}
+
+/* Botões */
+.botao-primario {
+    -fx-background-color: #006729;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 9px 18px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.botao-primario:hover {
+    -fx-background-color: #005220;
+}
+
+.botao-secundario {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #a7f3d0;
+    -fx-text-fill: #064e28;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.botao-secundario:hover {
+    -fx-background-color: #ecfdf5;
+    -fx-border-color: #006729;
+}
+
+.botao-sucesso {
+    -fx-background-color: #059669;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 18px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.botao-sucesso:hover {
+    -fx-background-color: #047857;
+}
+
+.botao-perigo {
+    -fx-background-color: #dc2626;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 18px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.botao-perigo:hover {
+    -fx-background-color: #b91c1c;
+}
+
+/* Campos de Texto */
+.campo-texto {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 10px;
+    -fx-font-size: 13px;
+}
+
+.campo-texto:focused {
+    -fx-border-color: #006729;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 103, 41, 0.2), 3, 0, 0, 0);
+}
+
+/* Abas */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8e5;
+    -fx-border-width: 0 0 1 0;
+}
+
+.tab {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 11px 22px;
+}
+
+.tab:selected {
+    -fx-background-color: #ecfdf5;
+    -fx-border-color: #006729;
+    -fx-border-width: 0 0 3px 0;
+}
+
+.tab .tab-label {
+    -fx-text-fill: #52796f;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: #006729;
+}
+
+/* Tabelas */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8e5;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f0fdf4;
+    -fx-border-color: #d1fae5;
+    -fx-border-width: 0 0 1 0;
+    -fx-font-weight: bold;
+    -fx-text-fill: #064e28;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f9fdfa;
+}
+
+/* Área de Log */
+.area-log {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 11px;
+    -fx-control-inner-background: #062312;
+    -fx-text-fill: #34d399;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
