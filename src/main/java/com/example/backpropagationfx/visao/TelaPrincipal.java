@@ -47,6 +47,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
     private Button botaoSelecionarTreino;
     private Button botaoSelecionarTeste;
     private Button botaoSelecionarUnico;
+    private Button botaoCarregarDados;
     private TextField campoPorcentagemTreino;
     private CheckBox checkSeedDivisao;
     private TextField campoSeedDivisao;
@@ -220,11 +221,11 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
                 this.checkSeedDivisao, this.campoSeedDivisao
         );
 
-        Button botaoCarregar = new Button("Carregar e Processar Dados");
-        botaoCarregar.getStyleClass().add("botao-primario");
-        botaoCarregar.setOnAction(e -> this.processarCarregamentoDados());
+        this.botaoCarregarDados = new Button("Carregar e Processar Dados");
+        this.botaoCarregarDados.getStyleClass().add("botao-primario");
+        this.botaoCarregarDados.setOnAction(e -> this.processarCarregamentoDados());
 
-        cardModo.getChildren().addAll(tituloCard, linhaRadios, gradeDoisArquivos, painelArquivoUnico, botaoCarregar);
+        cardModo.getChildren().addAll(tituloCard, linhaRadios, gradeDoisArquivos, painelArquivoUnico, this.botaoCarregarDados);
 
         // Alternância visual entre os modos
         this.radioDoisArquivos.setOnAction(e -> {
@@ -678,7 +679,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         // Card da Tabela de Desempenho por Classe e Gráfico de Pizza
         VBox cardDesempenho = new VBox(10);
         cardDesempenho.getStyleClass().add("card");
-        cardDesempenho.setPrefWidth(470);
+        cardDesempenho.setPrefWidth(500);
 
         Label titDesemp = new Label("Desempenho Individual por Classe");
         titDesemp.getStyleClass().add("card-titulo");
@@ -711,29 +712,29 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
     private void configurarTabelaMetricas() {
         TableColumn<MetricaClasse, String> colClasse = new TableColumn<MetricaClasse, String>("Classe");
         colClasse.setCellValueFactory(cellData -> cellData.getValue().classeProperty());
-        colClasse.setPrefWidth(60);
+        colClasse.setPrefWidth(65);
 
         TableColumn<MetricaClasse, String> colTotal = new TableColumn<MetricaClasse, String>("Exemplos");
         colTotal.setCellValueFactory(cellData -> cellData.getValue().exemplosProperty());
-        colTotal.setPrefWidth(65);
+        colTotal.setPrefWidth(70);
 
         TableColumn<MetricaClasse, String> colAcertos = new TableColumn<MetricaClasse, String>("Acertos");
         colAcertos.setCellValueFactory(cellData -> cellData.getValue().acertosProperty());
-        colAcertos.setPrefWidth(60);
+        colAcertos.setPrefWidth(65);
 
-        TableColumn<MetricaClasse, String> colAcuracia = new TableColumn<MetricaClasse, String>("Acurácia");
-        colAcuracia.setCellValueFactory(cellData -> cellData.getValue().acuraciaProperty());
-        colAcuracia.setPrefWidth(80);
+        TableColumn<MetricaClasse, String> colAcuraciaClasse = new TableColumn<MetricaClasse, String>("Acurácia Classe");
+        colAcuraciaClasse.setCellValueFactory(cellData -> cellData.getValue().acuraciaClasseProperty());
+        colAcuraciaClasse.setPrefWidth(110);
 
         TableColumn<MetricaClasse, String> colPrecisao = new TableColumn<MetricaClasse, String>("Precisão");
         colPrecisao.setCellValueFactory(cellData -> cellData.getValue().precisaoProperty());
-        colPrecisao.setPrefWidth(80);
+        colPrecisao.setPrefWidth(85);
 
         TableColumn<MetricaClasse, String> colRevocacao = new TableColumn<MetricaClasse, String>("Revocação");
         colRevocacao.setCellValueFactory(cellData -> cellData.getValue().revocacaoProperty());
-        colRevocacao.setPrefWidth(80);
+        colRevocacao.setPrefWidth(85);
 
-        this.tabelaMetricasClasses.getColumns().addAll(colClasse, colTotal, colAcertos, colAcuracia, colPrecisao, colRevocacao);
+        this.tabelaMetricasClasses.getColumns().addAll(colClasse, colTotal, colAcertos, colAcuraciaClasse, colPrecisao, colRevocacao);
     }
 
     // Associa os eventos aos botões e controles da interface.
@@ -828,7 +829,11 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
                     try {
                         porcTreino = Double.parseDouble(this.campoPorcentagemTreino.getText().trim());
                     } catch (Exception ex) {
-                        porcTreino = 70.0;
+                        porcTreino = Double.NaN;
+                    }
+                    if (!Double.isFinite(porcTreino) || porcTreino <= 0.0 || porcTreino >= 100.0 || baseCompleta.getQuantidadeExemplos() < 2) {
+                        sucesso = false;
+                        this.exibirAlerta("Divisao Invalida", "Informe uma porcentagem maior que 0 e menor que 100, com pelo menos 2 exemplos.", Alert.AlertType.ERROR);
                     }
 
                     boolean usarSeed = this.checkSeedDivisao.isSelected();
@@ -841,9 +846,43 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
                         }
                     }
 
-                    ConjuntoDados[] divisao = baseCompleta.dividirTreinoETeste(porcTreino, usarSeed, seed);
-                    this.conjuntoTreino = divisao[0];
-                    this.conjuntoTeste = divisao[1];
+                    if (sucesso) {
+                        ConjuntoDados[] divisao = baseCompleta.dividirTreinoETeste(porcTreino, usarSeed, seed);
+                        this.conjuntoTreino = divisao[0];
+                        this.conjuntoTeste = divisao[1];
+                    }
+                }
+            }
+        }
+
+        if (sucesso) {
+            if (this.conjuntoTreino.getQuantidadeExemplos() == 0 || this.conjuntoTeste.getQuantidadeExemplos() == 0) {
+                sucesso = false;
+                this.exibirAlerta("Base Invalida", "Treino e teste devem conter exemplos. Ajuste a divisao percentual.", Alert.AlertType.ERROR);
+            }
+            if (sucesso && !this.conjuntoTreino.getNomesAtributos().equals(this.conjuntoTeste.getNomesAtributos())) {
+                sucesso = false;
+                this.exibirAlerta("Bases Incompativeis", "Os dois arquivos devem ter os mesmos atributos, na mesma ordem.", Alert.AlertType.ERROR);
+            }
+            if (sucesso) {
+                for (ExemploDado ex : this.conjuntoTeste.getExemplos()) {
+                    if (!this.conjuntoTreino.getClassesUnicas().contains(ex.getRotuloClasse())) {
+                        sucesso = false;
+                    }
+                }
+                for (String nomeClasse : this.conjuntoTreino.getClassesUnicas()) {
+                    boolean classePresente = false;
+                    for (ExemploDado ex : this.conjuntoTreino.getExemplos()) {
+                        if (ex.getRotuloClasse().equals(nomeClasse)) {
+                            classePresente = true;
+                        }
+                    }
+                    if (!classePresente) {
+                        sucesso = false;
+                    }
+                }
+                if (!sucesso) {
+                    this.exibirAlerta("Classes Incompativeis", "Todas as classes avaliadas devem existir no treino. Ajuste a divisao/seed ou os arquivos CSV.", Alert.AlertType.ERROR);
                 }
             }
         }
@@ -881,6 +920,12 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
             this.preencherTabelaPrevia();
 
             this.inicializarEstruturaRedeVisual();
+            this.botaoAvaliarTeste.setDisable(true);
+            this.botaoExportarHistorico.setDisable(true);
+            this.botaoExportarMatriz.setDisable(true);
+            this.matrizConfusaoAtual = null;
+            this.tabelaMetricasClasses.getItems().clear();
+            this.kpiAcuracia.setText("--");
 
             this.exibirAlerta("Sucesso", "Base de dados carregada, normalizada e codificada com sucesso!\n" +
                     "Entradas: " + qtdEntradas + " | Classes: " + qtdClasses + "\n" +
@@ -1025,6 +1070,64 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
     }
 
     // Inicia a rotina de treinamento com Backpropagation.
+    // Verifica os campos de configuracao antes de iniciar a rede.
+    private boolean validarParametrosTreinamento() {
+        boolean valido = true;
+        try {
+            int ocultas = Integer.parseInt(this.campoOcultas.getText().trim());
+            if (ocultas < 1) {
+                valido = false;
+            }
+        } catch (Exception e) {
+            valido = false;
+        }
+        if (this.checkParadaEpocas.isSelected()) {
+            try {
+                if (Integer.parseInt(this.campoMaxEpocas.getText().trim()) <= 0) {
+                    valido = false;
+                }
+            } catch (Exception e) {
+                valido = false;
+            }
+        }
+        if (this.checkParadaErro.isSelected()) {
+            try {
+                double limiar = Double.parseDouble(this.campoErroMinimo.getText().trim().replace(',', '.'));
+                if (!Double.isFinite(limiar) || limiar <= 0.0) {
+                    valido = false;
+                }
+            } catch (Exception e) {
+                valido = false;
+            }
+        }
+        if (this.checkSeedPesos.isSelected()) {
+            try {
+                Long.parseLong(this.campoSeedPesos.getText().trim());
+            } catch (Exception e) {
+                valido = false;
+            }
+        }
+        if (!valido) {
+            this.exibirAlerta("Parametros Invalidos", "Verifique os neuronios ocultos (>= 1), o maximo de epocas (> 0), o erro minimo (> 0) e a seed (inteira).", Alert.AlertType.ERROR);
+        }
+        return valido;
+    }
+
+    // Bloqueia alteracoes que invalidariam o treinamento em andamento.
+    private void alterarControlesDuranteTreino(boolean treinando) {
+        this.botaoCarregarDados.setDisable(treinando);
+        this.botaoResetarTreino.setDisable(treinando);
+        this.radioOcultaAritmetica.setDisable(treinando);
+        this.radioOcultaGeometrica.setDisable(treinando);
+        this.radioOcultaManual.setDisable(treinando);
+        this.campoOcultas.setDisable(treinando || !this.radioOcultaManual.isSelected());
+        this.radioLinear.setDisable(treinando);
+        this.radioLogistica.setDisable(treinando);
+        this.radioHiperbolica.setDisable(treinando);
+        this.checkSeedPesos.setDisable(treinando);
+        this.campoSeedPesos.setDisable(treinando || !this.checkSeedPesos.isSelected());
+    }
+
     private void iniciarTreinamento() {
         if (this.conjuntoTreino.getQuantidadeExemplos() == 0) {
             this.exibirAlerta("Atenção", "Carregue a base de dados na Aba 1 antes de iniciar o treinamento.", Alert.AlertType.WARNING);
@@ -1035,7 +1138,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
             try {
                 String textoTaxa = this.campoTaxaAprendizagem.getText().trim().replace(',', '.');
                 eta = Double.parseDouble(textoTaxa);
-                if (eta <= 0.0 || eta > 1.0) {
+                if (!Double.isFinite(eta) || eta <= 0.0 || eta > 1.0) {
                     taxaValida = false;
                 }
             } catch (Exception ex) {
@@ -1044,6 +1147,8 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
 
             if (!taxaValida) {
                 this.exibirAlerta("Taxa Inválida", "A taxa de aprendizagem (η) deve ser um número maior que 0 e menor ou igual a 1 (0 < η ≤ 1).\nExemplo: 0.15 ou 0.01", Alert.AlertType.ERROR);
+            } else if (!this.validarParametrosTreinamento()) {
+                // A mensagem dos parametros invalidos ja foi exibida.
             } else {
                 boolean usarEpocas = this.checkParadaEpocas.isSelected();
                 boolean usarErro = this.checkParadaErro.isSelected();
@@ -1077,6 +1182,8 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
                     }
 
                     int tipoFuncao = this.obterTipoFuncaoSelecionada();
+                    // Cada clique em Iniciar cria um novo experimento com pesos iniciais.
+                    this.inicializarEstruturaRedeVisual();
                     this.redeNeural.setTipoFuncaoAtivacao(tipoFuncao);
 
                     // Recodifica as saídas para a função escolhida (caso tenha mudado)
@@ -1086,6 +1193,11 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
                     // Limpa gráfico e logs
                     this.serieErro.getData().clear();
                     this.areaLogEventos.clear();
+                    this.botaoAvaliarTeste.setDisable(true);
+                    this.botaoExportarHistorico.setDisable(true);
+                    this.botaoExportarMatriz.setDisable(true);
+                    this.matrizConfusaoAtual = null;
+                    this.tabelaMetricasClasses.getItems().clear();
                     String infoParada = "";
                     if (usarEpocas) {
                         infoParada = infoParada + " | Máx Épocas: " + maxEpocas;
@@ -1100,6 +1212,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
                     this.botaoPausarTreino.setDisable(false);
                     this.botaoPausarTreino.setText("⏸ Pausar");
                     this.botaoInterromperTreino.setDisable(false);
+                    this.alterarControlesDuranteTreino(true);
 
                     // Instancia o treinador e inicia em thread separada
                     this.treinador = new TreinadorMLP(
@@ -1147,35 +1260,40 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
     // Reseta completamente o estado de treinamento: - Interrompe qualquer treino em execução; - Reinicializa a rede neural com novos pesos aleatórios (respeitando a seed se selecionada); - Limpa o gráfico da curva de erro; - Limpa a área de logs e os indicadores visuais (KPIs); - Restaura os botões de ação para o estado inicial.
     private void resetarTreinamento() {
         if (this.treinador != null && this.treinador.isExecutando()) {
-            this.treinador.interromper();
-        }
-
-        // Limpa o gráfico e logs
-        this.serieErro.getData().clear();
-        this.areaLogEventos.clear();
-
-        // Reinicia a estrutura e os pesos da rede
-        this.inicializarEstruturaRedeVisual();
-
-        // Reseta os KPIs na tela
-        this.atualizarRotuloKpiEpocaInicial();
-        this.kpiErroMedio.setText("0.000000");
-        this.kpiTempo.setText("00:00");
-
-        String textoTaxa = this.campoTaxaAprendizagem.getText().trim().replace(',', '.');
-        if (textoTaxa.length() > 0) {
-            this.kpiTaxaAtual.setText(textoTaxa);
+            this.exibirAlerta("Treinamento em andamento", "Interrompa o treino e aguarde seu termino antes de resetar.", Alert.AlertType.WARNING);
         } else {
-            this.kpiTaxaAtual.setText("0.200000");
+            // Limpa o gráfico e logs
+            this.serieErro.getData().clear();
+            this.areaLogEventos.clear();
+
+            // Reinicia a estrutura e os pesos da rede
+            this.inicializarEstruturaRedeVisual();
+
+            // Reseta os KPIs na tela
+            this.atualizarRotuloKpiEpocaInicial();
+            this.kpiErroMedio.setText("0.000000");
+            this.kpiTempo.setText("00:00");
+
+            String textoTaxa = this.campoTaxaAprendizagem.getText().trim().replace(',', '.');
+            if (textoTaxa.length() > 0) {
+                this.kpiTaxaAtual.setText(textoTaxa);
+            } else {
+                this.kpiTaxaAtual.setText("0.200000");
+            }
+
+            // Restaura os botões de controle
+            this.botaoIniciarTreino.setDisable(false);
+            this.botaoPausarTreino.setDisable(true);
+            this.botaoPausarTreino.setText("⏸ Pausar");
+            this.botaoInterromperTreino.setDisable(true);
+
+            this.botaoAvaliarTeste.setDisable(true);
+            this.botaoExportarHistorico.setDisable(true);
+            this.botaoExportarMatriz.setDisable(true);
+            this.matrizConfusaoAtual = null;
+            this.tabelaMetricasClasses.getItems().clear();
+            this.adicionarLog("Treinamento resetado com sucesso. Pesos reinicializados.");
         }
-
-        // Restaura os botões de controle
-        this.botaoIniciarTreino.setDisable(false);
-        this.botaoPausarTreino.setDisable(true);
-        this.botaoPausarTreino.setText("⏸ Pausar");
-        this.botaoInterromperTreino.setDisable(true);
-
-        this.adicionarLog("Treinamento resetado com sucesso. Pesos reinicializados.");
     }
 
     // Atualiza o texto do indicador visual da época inicial antes ou durante a configuração.
@@ -1215,10 +1333,8 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
             long segundos = segundosTotais % 60;
             this.kpiTempo.setText(String.format("%02d:%02d", minutos, segundos));
 
-            // Atualiza o gráfico periodicamente para não degradar a taxa de quadros
-            if (epoca % 5 == 0 || erroMedio < 0.0001) {
-                this.serieErro.getData().add(new XYChart.Data<Number, Number>(epoca, erroMedio));
-            }
+            // Atualiza o gráfico a cada época
+            this.serieErro.getData().add(new XYChart.Data<Number, Number>(epoca, erroMedio));
 
             // Atualiza a visualização gráfica da rede a cada 50 épocas
             if (epoca % 50 == 0) {
@@ -1267,6 +1383,11 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
                     }
                 }
             });
+            // Fechar o dialogo sem escolher opcao nao pode deixar o treino pausado indefinidamente.
+            if (this.treinador.isPausado()) {
+                this.adicionarLog("Dialogo fechado: treinamento interrompido.");
+                this.treinador.aplicarDecisaoPlato(1);
+            }
         });
     }
 
@@ -1286,6 +1407,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
             this.botaoPausarTreino.setDisable(true);
             this.botaoPausarTreino.setText("⏸ Pausar");
             this.botaoInterromperTreino.setDisable(true);
+            this.alterarControlesDuranteTreino(false);
 
             this.botaoAvaliarTeste.setDisable(false);
             this.botaoExportarHistorico.setDisable(false);
@@ -1442,15 +1564,15 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         private final SimpleStringProperty classe;
         private final SimpleStringProperty exemplos;
         private final SimpleStringProperty acertos;
-        private final SimpleStringProperty acuracia;
+        private final SimpleStringProperty acuraciaClasse;
         private final SimpleStringProperty precisao;
         private final SimpleStringProperty revocacao;
 
-        public MetricaClasse(String classe, String exemplos, String acertos, String acuracia, String precisao, String revocacao) {
+        public MetricaClasse(String classe, String exemplos, String acertos, String acuraciaClasse, String precisao, String revocacao) {
             this.classe = new SimpleStringProperty(classe);
             this.exemplos = new SimpleStringProperty(exemplos);
             this.acertos = new SimpleStringProperty(acertos);
-            this.acuracia = new SimpleStringProperty(acuracia);
+            this.acuraciaClasse = new SimpleStringProperty(acuraciaClasse);
             this.precisao = new SimpleStringProperty(precisao);
             this.revocacao = new SimpleStringProperty(revocacao);
         }
@@ -1458,7 +1580,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         public SimpleStringProperty classeProperty() { return this.classe; }
         public SimpleStringProperty exemplosProperty() { return this.exemplos; }
         public SimpleStringProperty acertosProperty() { return this.acertos; }
-        public SimpleStringProperty acuraciaProperty() { return this.acuracia; }
+        public SimpleStringProperty acuraciaClasseProperty() { return this.acuraciaClasse; }
         public SimpleStringProperty precisaoProperty() { return this.precisao; }
         public SimpleStringProperty revocacaoProperty() { return this.revocacao; }
     }

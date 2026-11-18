@@ -4,24 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f94cbb66-ff96-49a3-b409-c41bd0d8876b" name="Changes" comment="arrumando o .idea">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="f94cbb66-ff96-49a3-b409-c41bd0d8876b" name="Changes" comment="arrumando umas fita ai de acuracia e pizzas.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/CalculadoraEstatistica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/CalculadoraEstatistica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ConjuntoDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ConjuntoDados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExemploDado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExemploDado.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExportadorDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExportadorDados.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/MatrizConfusao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/MatrizConfusao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/Neuronio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/Neuronio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/OuvinteTreinamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/OuvinteTreinamento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/RedeNeuralMLP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/RedeNeuralMLP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/RegistroEpoca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/RegistroEpoca.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/TreinadorMLP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/TreinadorMLP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/PainelMatrizConfusao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/PainelMatrizConfusao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/PainelVisualizacaoRede.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/PainelVisualizacaoRede.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/TelaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/TelaPrincipal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/backpropagationfx/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/backpropagationfx/estilos.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +82,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1794963454718</updated>
-      <workItem from="1794963465416" duration="2367000" />
+      <workItem from="1794963465416" duration="3494000" />
     </task>
     <task id="LOCAL-00001" summary="arrumando o .idea">
       <option name="closed" value="true" />
@@ -101,7 +92,15 @@
       <option name="project" value="LOCAL" />
       <updated>1794963575304</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="arrumando umas fita ai de acuracia e pizzas.">
+      <option name="closed" value="true" />
+      <created>1794967455091</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1794967455091</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -109,6 +108,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="arrumando o .idea" />
-    <option name="LAST_COMMIT_MESSAGE" value="arrumando o .idea" />
+    <MESSAGE value="arrumando umas fita ai de acuracia e pizzas." />
+    <option name="LAST_COMMIT_MESSAGE" value="arrumando umas fita ai de acuracia e pizzas." />
   </component>
 </project>

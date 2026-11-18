@@ -163,7 +163,7 @@ public class TreinadorMLP implements Runnable {
                 double somaErrosExemplos = 0.0;
 
                 // Percorre os exemplos de treino (padrão a padrão)
-                for (int i = 0; i < totalExemplos; i = i + 1) {
+                for (int i = 0; i < totalExemplos && !this.interrompido; i = i + 1) {
                     ExemploDado exemplo = listaExemplos.get(i);
                     double[] entradas = exemplo.getAtributosNormalizados();
                     double[] desejados = exemplo.getVetorDesejado();
@@ -176,61 +176,68 @@ public class TreinadorMLP implements Runnable {
                     somaErrosExemplos = somaErrosExemplos + erroExemplo;
                 }
 
-                // Erro médio da rede nesta época
-                double erroMedioEpoca = somaErrosExemplos / (double) totalExemplos;
-                this.erroMedioFinal = erroMedioEpoca;
-                this.totalEpocasExecutadas = epocaAtual;
+                // Se o usuario interrompeu durante uma epoca, nao registra epoca parcial.
+                if (this.interrompido) {
+                    deveContinuar = false;
+                    this.motivoEncerramento = "Treinamento interrompido pelo usuario.";
+                } else {
+                    // Erro médio da rede nesta época
+                    double erroMedioEpoca = somaErrosExemplos / (double) totalExemplos;
+                    this.erroMedioFinal = erroMedioEpoca;
+                    this.totalEpocasExecutadas = epocaAtual;
 
-                long tempoDecorrido = System.currentTimeMillis() - tempoInicio;
+                    long tempoDecorrido = System.currentTimeMillis() - tempoInicio;
 
-                // Registra no histórico
-                RegistroEpoca registro = new RegistroEpoca(epocaAtual, erroMedioEpoca, this.taxaAprendizagem, tempoDecorrido);
-                this.historicoTreinamento.add(registro);
+                    // Registra no histórico
+                    RegistroEpoca registro = new RegistroEpoca(epocaAtual, erroMedioEpoca, this.taxaAprendizagem, tempoDecorrido);
+                    this.historicoTreinamento.add(registro);
 
-                // Notifica a interface gráfica
-                if (this.ouvinte != null) {
-                    this.ouvinte.aoAtualizarProgresso(epocaAtual, erroMedioEpoca, this.taxaAprendizagem, tempoDecorrido);
-                }
+                    // Notifica a interface gráfica
+                    if (this.ouvinte != null) {
+                        this.ouvinte.aoAtualizarProgresso(epocaAtual, erroMedioEpoca, this.taxaAprendizagem, tempoDecorrido);
+                    }
 
-                // Gerenciamento da janela de erros para detecção de platô (mínimo 10 épocas)
-                this.janelaErrosPlato.add(erroMedioEpoca);
-                if (this.janelaErrosPlato.size() > 10) {
-                    this.janelaErrosPlato.remove(0);
-                }
-
-                if (this.janelaErrosPlato.size() == 10 && !this.aguardandoDecisaoPlato) {
-                    double desvioPadrao = CalculadoraEstatistica.calcularDesvioPadrao(this.janelaErrosPlato);
-                    if (desvioPadrao <= this.limiarDesvioPlato && desvioPadrao >= 0.0) {
-                        this.pausado = true;
-                        this.aguardandoDecisaoPlato = true;
-                        if (this.ouvinte != null) {
-                            this.ouvinte.aoDetectarPlato(desvioPadrao, this.taxaAprendizagem);
+                    // Verificação dos critérios de parada
+                    if (this.usarCriterioErro) {
+                        if (erroMedioEpoca <= this.erroMinimoLimiar) {
+                            deveContinuar = false;
+                            this.motivoEncerramento = "Critério de parada atingido: Limiar de erro mínimo alcançado (" + String.format("%.6f", erroMedioEpoca) + ").";
                         }
                     }
-                }
 
-                // Verificação dos critérios de parada
-                if (this.usarCriterioErro) {
-                    if (erroMedioEpoca <= this.erroMinimoLimiar) {
-                        deveContinuar = false;
-                        this.motivoEncerramento = "Critério de parada atingido: Limiar de erro mínimo alcançado (" + String.format("%.6f", erroMedioEpoca) + ").";
+                    if (deveContinuar && this.usarCriterioEpocas) {
+                        if (epocaAtual >= this.maximoEpocas) {
+                            deveContinuar = false;
+                            this.motivoEncerramento = "Critério de parada atingido: Número máximo de épocas executadas (" + this.maximoEpocas + ").";
+                        }
                     }
-                }
 
-                if (deveContinuar && this.usarCriterioEpocas) {
-                    if (epocaAtual >= this.maximoEpocas) {
-                        deveContinuar = false;
-                        this.motivoEncerramento = "Critério de parada atingido: Número máximo de épocas executadas (" + this.maximoEpocas + ").";
+                    // Gerenciamento da janela de erros para detecção de platô (mínimo 10 épocas)
+                    this.janelaErrosPlato.add(erroMedioEpoca);
+                    if (this.janelaErrosPlato.size() > 10) {
+                        this.janelaErrosPlato.remove(0);
                     }
-                }
 
-                epocaAtual = epocaAtual + 1;
+                    // Nao pedir decisao de plato quando o treino ja atingiu a parada.
+                    if (deveContinuar && this.janelaErrosPlato.size() == 10 && !this.aguardandoDecisaoPlato) {
+                        double desvioPadrao = CalculadoraEstatistica.calcularDesvioPadrao(this.janelaErrosPlato);
+                        if (desvioPadrao <= this.limiarDesvioPlato && desvioPadrao >= 0.0) {
+                            this.pausado = true;
+                            this.aguardandoDecisaoPlato = true;
+                            if (this.ouvinte != null) {
+                                this.ouvinte.aoDetectarPlato(desvioPadrao, this.taxaAprendizagem);
+                            }
+                        }
+                    }
 
-                // Pequeno intervalo para permitir atualização fluida da tela e não sobrecarregar a CPU
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    this.interrompido = true;
+                    epocaAtual = epocaAtual + 1;
+
+                    // Pequeno intervalo para permitir atualização fluida da tela e não sobrecarregar a CPU
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        this.interrompido = true;
+                    }
                 }
             }
         }

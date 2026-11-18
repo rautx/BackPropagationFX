@@ -97,24 +97,10 @@ public class MatrizConfusao {
         return acuracia;
     }
 
-    // Retorna a Acurácia da classe em porcentagem (One-vs-Rest): (VP + VN) / TotalGeral * 100.
+    // Acuracia por classe = acertos da classe / quantidade real daquela classe.
+    // Nesta classificacao multiclasse, equivale numericamente a revocacao (recall).
     public double getAcuraciaClasse(int indiceClasse) {
-        double acuracia = 0.0;
-        int totalGeral = this.getTotalGeral();
-        if (totalGeral > 0) {
-            int vp = this.matriz[indiceClasse][indiceClasse];
-            int vn = 0;
-
-            for (int l = 0; l < this.quantidadeClasses; l = l + 1) {
-                for (int c = 0; c < this.quantidadeClasses; c = c + 1) {
-                    if (l != indiceClasse && c != indiceClasse) {
-                        vn = vn + this.matriz[l][c];
-                    }
-                }
-            }
-
-            acuracia = ((double) (vp + vn) * 100.0) / ((double) totalGeral);
-        }
+        double acuracia = this.getRevocacaoClasse(indiceClasse);
         return acuracia;
     }
 

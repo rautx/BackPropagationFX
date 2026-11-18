@@ -1,0 +1,79 @@
+AUDITORIA DO PROJETO BACKPROPAGATIONFX
+====================================
+Referência: TrabalhoIA2BimMLPBackpropagation.pdf, páginas 1-6.
+Data da análise: 17/11/2026.
+
+NÍVEL DA VERIFICAÇÃO
+- O núcleo Java (pacote modelo) compilou com OpenJDK 21.
+- 58 assertivas de teste independentes passaram, incluindo verificação numérica
+  dos gradientes de todas as três funções de ativação, divisão, normalização,
+  leitura de CSV, parada, platô e matriz de confusão.
+- Teste adicional com os dados que já estavam no ZIP: 827 exemplos de treino,
+  352 de teste, 15 épocas, erro 0,213139 -> 0,018154; 352/352 acertos.
+- Experimentos independentes com UCI Iris: 43/45, 43/45, 39/45 acertos.
+- NÃO foi possível compilar e executar a interface JavaFX aqui. O ambiente
+  de auditoria tem Java 21, mas não tem Maven nem JavaFX instalados e não
+  consegue buscar as dependências. Portanto, funcionalidades visuais foram
+  verificadas por inspeção do código, não por teste manual da janela.
+
+CHECKLIST DO PDF
+RF01 — Leitura CSV e detecção de entradas/classes: núcleo testado; tabela
+       de prévia verificada no código (até 100 exemplos).
+RF02 — Dois arquivos e modo arquivo único com percentual/embaralhamento:
+       implementados; divisão de dados testada.
+RF03 — Normalização min-max calculada no treino e aplicada no teste,
+       incluindo caso constante: implementação e testes do núcleo.
+RF04 — Arquitetura e camadas: média aritmética, geométrica e definição
+       manual presentes na interface (revisão estática).
+RF05 — Linear, logística e tanh: implementadas; gradientes conferidos
+       numericamente (36 verificações de pesos).
+RF06 — Validação de eta: conferida no código, inclusive NaN/Infinity;
+       a mensagem de erro é exibida pela interface.
+RF07 — Parada por épocas e por limiar: testadas no núcleo; texto do motivo
+       verificado no código da interface.
+RF08 — Pesos iniciais aleatórios, aprendizado padrão a padrão e erro médio:
+       implementados, testados com dois datasets.
+RF09 — Indicadores, curva de erro por época, pausa/retomada e interrupção:
+       inspecionados no código; falta validar a janela JavaFX em laboratório.
+RF10 — Arquitetura visual e pesos em tooltip/hover: implementados; falta
+       verificar a interação com mouse na janela real.
+RF11 — Janela de 10 épocas, desvio, decisão e redução de 10% do eta:
+       núcleo testado, diálogo revisado no código; falta teste GUI.
+RF12 — Teste com dados separados, matriz e acurácia global: núcleo testado;
+       acurácia por classe explicitada na tabela e exportação CSV.
+
+EXTRAS OPCIONAIS: exportação CSV, seed, precisão e revocação implementadas.
+Salvar/carregar pesos e gráfico comparativo múltiplo não implementados,
+mas não são obrigatórios.
+
+ENTREGÁVEIS
+- Código-fonte completo em ZIP.
+- readme.txt com formato, dependências, modo de execução e campo para grupo.
+- Dataset UCI Iris com fonte identificada e 3 arquivos CSV.
+- Relatório experimental de 2 páginas, com três curvas e matrizes de confusão.
+- Apresentação/arguição em laboratório: PENDENTE, deve ser feita pelo grupo.
+- Nomes do grupo no readme.txt e relatório: PENDENTES (não fornecidos).
+
+CORREÇÕES REALIZADAS NESTA VERSÃO
+- CSVs malformados, vazios ou com números não finitos agora são rejeitados.
+- Validação de compatibilidade de atributos e rótulos de treino/teste.
+- Porcentagem da divisão, taxa e parâmetros de treinamento validados.
+- Função tanh numérica estabilizada (Math.tanh).
+- Acurácia por classe explicitada no método, na tabela e no CSV.
+- Curva passa a incluir todos os erros de época, não só de 5 em 5.
+- Treinamentos novos reiniciam pesos; controles críticos ficam bloqueados
+  durante o treino, para evitar troca de dados/arquitetura no meio do processo.
+- Tratamento do fechamento do diálogo de platô e interrupção no meio da época.
+- Verificação de critérios de parada ocorre antes de solicitar decisão de platô.
+- Maven ajustado para Java 21, consistente com JavaFX 21.0.6.
+- Foram preservadas as classes, lógica principal e organização originais.
+
+ANTES DE ENTREGAR
+1. Preencher integrantes e turma no readme.txt e relatório PDF.
+2. No computador com JDK e acesso a dependências, executar:
+   .\mvnw.cmd clean test
+   .\mvnw.cmd javafx:run
+3. Testar na GUI: carregar os dois CSVs UCI e o CSV único (70/30);
+   funções, pausa, interrupção, hover nos pesos e diálogo de platô.
+4. Preparar explicação dos gradientes, normalização, one-hot,
+   matriz de confusão e resultados dos três experimentos.

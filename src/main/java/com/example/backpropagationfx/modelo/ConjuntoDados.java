@@ -98,6 +98,9 @@ public class ConjuntoDados {
             if (linha != null) {
                 String[] cabecalho = linha.split(",");
                 int qtdColunas = cabecalho.length;
+                if (qtdColunas < 2) {
+                    throw new IOException("CSV deve conter atributos e classe.");
+                }
 
                 // Guarda os nomes dos atributos (todas as colunas exceto a última)
                 for (int i = 0; i < qtdColunas - 1; i = i + 1) {
@@ -110,15 +113,23 @@ public class ConjuntoDados {
                 while (linha != null) {
                     linha = linha.trim();
                     if (linha.length() > 0) {
-                        String[] partes = linha.split(",");
-                        if (partes.length == qtdColunas) {
+                        String[] partes = linha.split(",", -1);
+                        if (partes.length != qtdColunas) {
+                            throw new IOException("Linha do CSV com quantidade incorreta de colunas.");
+                        } else {
                             double[] valoresEntrada = new double[qtdColunas - 1];
                             for (int i = 0; i < qtdColunas - 1; i = i + 1) {
                                 valoresEntrada[i] = Double.parseDouble(partes[i].trim());
+                                if (!Double.isFinite(valoresEntrada[i])) {
+                                    throw new IOException("Atributo numerico invalido no CSV.");
+                                }
                             }
 
                             // Rótulo da classe com trim para remover espaços em branco
                             String rotulo = partes[qtdColunas - 1].trim();
+                            if (rotulo.isEmpty()) {
+                                throw new IOException("Classe vazia no CSV.");
+                            }
 
                             // Verifica se a classe já está na lista de classes únicas sem usar break
                             boolean classeExiste = false;
@@ -143,6 +154,9 @@ public class ConjuntoDados {
             } else {
                 sucesso = false;
             }
+            if (this.exemplos.isEmpty()) {
+                sucesso = false;
+            }
 
             leitor.close();
         } catch (Exception e) {
@@ -154,6 +168,11 @@ public class ConjuntoDados {
                     // Ignora falha secundária no fechamento
                 }
             }
+        }
+        if (!sucesso) {
+            this.nomesAtributos.clear();
+            this.classesUnicas.clear();
+            this.exemplos.clear();
         }
 
         return sucesso;

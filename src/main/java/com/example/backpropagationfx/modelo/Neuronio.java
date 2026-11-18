@@ -54,7 +54,10 @@ public class Neuronio {
         this.erroGradiente = erroGradiente;
     }
 
-    // Aplica a função de transferência e calcula sua respectiva derivada. Tipos permitidos: 1 = Linear: f(net) = net / 10, f'(net) = 1 / 10 2 = Logística: f(net) = 1 / (1 + e^-net), f'(net) = saida * (1 - saida) 3 = Tangente Hiperbólica: f(net) = (1 - e^-2net) / (1 + e^-2net), f'(net) = 1 - saida^2
+    // Aplica a função de transferência e calcula sua respectiva derivada. Tipos
+    // permitidos: 1 = Linear: f(net) = net / 10, f'(net) = 1 / 10 2 = Logística:
+    // f(net) = 1 / (1 + e^-net), f'(net) = saida * (1 - saida) 3 = Tangente
+    // Hiperbólica: f(net) = (1 - e^-2net) / (1 + e^-2net), f'(net) = 1 - saida^2
     public void aplicarAtivacao(int tipoFuncao) {
         if (tipoFuncao == 1) {
             // Função Linear
@@ -67,12 +70,11 @@ public class Neuronio {
                 this.saida = 1.0 / (1.0 + expNegativo);
                 this.derivada = this.saida * (1.0 - this.saida);
             } else {
-                // Função Tangente Hiperbólica
-                double expMenos2Net = Math.exp(-2.0 * this.net);
-                this.saida = (1.0 - expMenos2Net) / (1.0 + expMenos2Net);
+                // Função Tangente Hiperbólica (Math.tanh equivale a formula e evita estouro
+                // numerico)
+                this.saida = Math.tanh(this.net);
                 this.derivada = 1.0 - (this.saida * this.saida);
             }
         }
     }
 }
-

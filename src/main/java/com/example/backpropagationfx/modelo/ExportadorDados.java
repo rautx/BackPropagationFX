@@ -77,7 +77,7 @@ public class ExportadorDados {
             // Métricas
             escritor.write("AcuraciaGeral," + String.format(java.util.Locale.US, "%.2f%%", matriz.getAcuraciaGeral()) + "\n\n");
 
-            escritor.write("Classe,Acuracia,Precisao,Revocacao\n");
+            escritor.write("Classe,AcuraciaPorClasse,Precisao,Revocacao\n");
             for (int i = 0; i < n; i = i + 1) {
                 String linhaMetrica = classes.get(i) + "," +
                         String.format(java.util.Locale.US, "%.2f%%", matriz.getAcuraciaClasse(i)) + "," +

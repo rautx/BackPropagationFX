@@ -1,0 +1,12 @@
+ClasseReal,virginica,versicolor,setosa,Total
+virginica,15,0,0,15
+versicolor,2,13,0,15
+setosa,0,0,15,15
+TotalPrevisto,17,13,15,45
+
+AcuraciaGeral,95.56%
+
+Classe,AcuraciaPorClasse,Precisao,Revocacao
+virginica,100.00%,88.24%,100.00%
+versicolor,86.67%,100.00%,86.67%
+setosa,100.00%,100.00%,100.00%
