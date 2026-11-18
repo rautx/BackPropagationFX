@@ -7,11 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Representa um conjunto de dados carregado a partir de um arquivo CSV.
- * Gerencia a lista de exemplos, nomes de colunas, classes únicas,
- * valores mínimos e máximos para normalização e divisão de treino/teste.
- */
+// Representa um conjunto de dados carregado a partir de um arquivo CSV. Gerencia a lista de exemplos, nomes de colunas, classes únicas, valores mínimos e máximos para normalização e divisão de treino/teste.
 public class ConjuntoDados {
 
     // Nomes das colunas de entrada obtidos do cabeçalho
@@ -87,11 +83,7 @@ public class ConjuntoDados {
         return total;
     }
 
-    /**
-     * Carrega os dados de um arquivo CSV.
-     * A última coluna é sempre considerada como a classe.
-     * As demais colunas são os atributos numéricos de entrada.
-     */
+    // Carrega os dados de um arquivo CSV. A última coluna é sempre considerada como a classe. As demais colunas são os atributos numéricos de entrada.
     public boolean carregarArquivoCsv(File arquivo) {
         boolean sucesso = true;
         this.nomesAtributos.clear();
@@ -167,9 +159,7 @@ public class ConjuntoDados {
         return sucesso;
     }
 
-    /**
-     * Calcula os valores mínimo e máximo de cada atributo na base de treinamento.
-     */
+    // Calcula os valores mínimo e máximo de cada atributo na base de treinamento.
     public void calcularMinimosEMaximos() {
         int qtdAtributos = this.getQuantidadeAtributos();
         int qtdExemplos = this.getQuantidadeExemplos();
@@ -199,11 +189,7 @@ public class ConjuntoDados {
         }
     }
 
-    /**
-     * Normaliza os atributos de entrada de cada exemplo para a faixa [0, 1].
-     * Utiliza os menores e maiores valores informados (provenientes do treino).
-     * Trata o caso especial em que o máximo é igual ao mínimo.
-     */
+    // Normaliza os atributos de entrada de cada exemplo para a faixa [0, 1]. Utiliza os menores e maiores valores informados (provenientes do treino). Trata o caso especial em que o máximo é igual ao mínimo.
     public void normalizar(double[] menores, double[] maiores) {
         this.menoresValores = menores;
         this.maioresValores = maiores;
@@ -234,11 +220,7 @@ public class ConjuntoDados {
         }
     }
 
-    /**
-     * Monta o vetor de saída desejada (One-Hot) para cada exemplo.
-     * Para Linear e Logística: 1.0 na classe correspondente e 0.0 nas demais.
-     * Para Tangente Hiperbólica: 1.0 na classe correspondente e -1.0 nas demais.
-     */
+    // Monta o vetor de saída desejada (One-Hot) para cada exemplo. Para Linear e Logística: 1.0 na classe correspondente e 0.0 nas demais. Para Tangente Hiperbólica: 1.0 na classe correspondente e -1.0 nas demais.
     public void codificarSaidasOneHot(int tipoFuncao, ArrayList<String> listaClassesReferencia) {
         int qtdClasses = listaClassesReferencia.size();
         int qtdExemplos = this.getQuantidadeExemplos();
@@ -266,11 +248,7 @@ public class ConjuntoDados {
         }
     }
 
-    /**
-     * Divide este conjunto de dados em dois novos conjuntos (treino e teste)
-     * de acordo com a porcentagem indicada (exemplo: 70.0 para 70% de treino).
-     * Aplica embaralhamento usando uma semente (seed) aleatória ou aleatório puro se usarSeed for falso.
-     */
+    // Divide este conjunto de dados em dois novos conjuntos (treino e teste) de acordo com a porcentagem indicada (exemplo: 70.0 para 70% de treino). Aplica embaralhamento usando uma semente (seed) aleatória ou aleatório puro se usarSeed for falso.
     public ConjuntoDados[] dividirTreinoETeste(double porcentagemTreino, boolean usarSeed, long valorSeed) {
         ConjuntoDados[] resultado = new ConjuntoDados[2];
         ConjuntoDados baseTreino = new ConjuntoDados();

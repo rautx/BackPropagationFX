@@ -1,10 +1,6 @@
 package com.example.backpropagationfx.modelo;
 
-/**
- * Representa um único exemplo (linha) da base de dados.
- * Contém os valores numéricos originais, os valores normalizados entre 0 e 1,
- * o rótulo textual da classe e o vetor one-hot correspondente.
- */
+// Representa um único exemplo (linha) da base de dados. Contém os valores numéricos originais, os valores normalizados entre 0 e 1, o rótulo textual da classe e o vetor one-hot correspondente.
 public class ExemploDado {
 
     // Valores originais lidos do arquivo CSV

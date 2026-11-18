@@ -7,10 +7,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
-/**
- * Ponto de entrada da aplicação JavaFX.
- * Configura o palco principal, o tamanho da janela e aplica a folha de estilos CSS.
- */
+// Ponto de entrada da aplicação JavaFX. Configura o palco principal, o tamanho da janela e aplica a folha de estilos CSS.
 public class MainApplication extends Application {
 
     @Override

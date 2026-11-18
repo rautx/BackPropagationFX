@@ -2,11 +2,7 @@ package com.example.backpropagationfx.modelo;
 
 import java.util.Random;
 
-/**
- * Implementação autoral da Rede Neural Artificial do tipo Perceptron Multicamadas (MLP).
- * Realiza propagação direta (forward), cálculo de gradientes de erro,
- * retropropagação (backward) e atualização de pesos sinápticos padrão a padrão.
- */
+// Implementação autoral da Rede Neural Artificial do tipo Perceptron Multicamadas (MLP). Realiza propagação direta (forward), cálculo de gradientes de erro, retropropagação (backward) e atualização de pesos sinápticos padrão a padrão.
 public class RedeNeuralMLP {
 
     // Quantidade de neurônios na camada de entrada (igual ao número de atributos)
@@ -89,10 +85,7 @@ public class RedeNeuralMLP {
         return this.neuroniosSaida;
     }
 
-    /**
-     * Inicializa os pesos com valores aleatórios pequenos no intervalo [-0.5, +0.5].
-     * Pode receber uma semente específica para permitir a repetição do experimento.
-     */
+    // Inicializa os pesos com valores aleatórios pequenos no intervalo [-0.5, +0.5]. Pode receber uma semente específica para permitir a repetição do experimento.
     public void inicializarPesosAleatorios(boolean usarSeed, long semente) {
         Random gerador = null;
         if (usarSeed) {
@@ -120,10 +113,7 @@ public class RedeNeuralMLP {
         }
     }
 
-    /**
-     * Etapa 1: Propagação direta (Forward).
-     * Calcula o net e a saída ativada para cada neurônio oculto e depois para cada neurônio de saída.
-     */
+    // Etapa 1: Propagação direta (Forward). Calcula o net e a saída ativada para cada neurônio oculto e depois para cada neurônio de saída.
     public void propagarEntradas(double[] vetorEntradas) {
         // 1. Calcula saídas da camada oculta
         for (int o = 0; o < this.quantidadeOcultas; o = o + 1) {
@@ -147,10 +137,7 @@ public class RedeNeuralMLP {
         }
     }
 
-    /**
-     * Etapa 2: Calcula o erro (gradiente) nos neurônios da camada de saída.
-     * Fórmula: Erro_G = (Desejado_G - Obtido_G) * f'(net_G)
-     */
+    // Etapa 2: Calcula o erro (gradiente) nos neurônios da camada de saída. Fórmula: Erro_G = (Desejado_G - Obtido_G) * f'(net_G)
     public void calcularGradienteSaida(double[] vetorDesejado) {
         for (int s = 0; s < this.quantidadeSaidas; s = s + 1) {
             double desejado = vetorDesejado[s];
@@ -162,10 +149,7 @@ public class RedeNeuralMLP {
         }
     }
 
-    /**
-     * Etapa 3: Retropropaga o erro para a camada oculta.
-     * Fórmula: Erro_C = (Soma sobre G de Erro_G * w_G,C) * f'(net_C)
-     */
+    // Etapa 3: Retropropaga o erro para a camada oculta. Fórmula: Erro_C = (Soma sobre G de Erro_G * w_G,C) * f'(net_C)
     public void retropropagarErroParaOculta() {
         for (int o = 0; o < this.quantidadeOcultas; o = o + 1) {
             double somaPonderada = 0.0;
@@ -181,10 +165,7 @@ public class RedeNeuralMLP {
         }
     }
 
-    /**
-     * Etapa 4: Atualiza todos os pesos da rede com base na taxa de aprendizagem (eta).
-     * w_novo = w_atual + eta * Erro_destino * i_origem
-     */
+    // Etapa 4: Atualiza todos os pesos da rede com base na taxa de aprendizagem (eta). w_novo = w_atual + eta * Erro_destino * i_origem
     public void atualizarPesos(double[] vetorEntradas, double taxaAprendizagem) {
         // Atualiza pesos entre a camada oculta e a de saída
         for (int s = 0; s < this.quantidadeSaidas; s = s + 1) {
@@ -207,9 +188,7 @@ public class RedeNeuralMLP {
         }
     }
 
-    /**
-     * Executa um passo completo de treinamento para um único exemplo (padrão a padrão).
-     */
+    // Executa um passo completo de treinamento para um único exemplo (padrão a padrão).
     public void treinarExemplo(double[] vetorEntradas, double[] vetorDesejado, double taxaAprendizagem) {
         this.propagarEntradas(vetorEntradas);
         this.calcularGradienteSaida(vetorDesejado);
@@ -217,10 +196,7 @@ public class RedeNeuralMLP {
         this.atualizarPesos(vetorEntradas, taxaAprendizagem);
     }
 
-    /**
-     * Calcula o erro quadrático para o exemplo apresentado:
-     * E = 0.5 * soma((Desejado - Obtido)^2) sobre todos os neurônios de saída.
-     */
+    // Calcula o erro quadrático para o exemplo apresentado: E = 0.5 * soma((Desejado - Obtido)^2) sobre todos os neurônios de saída.
     public double calcularErroExemplo(double[] vetorDesejado) {
         double somaQuadrados = 0.0;
         for (int s = 0; s < this.quantidadeSaidas; s = s + 1) {
@@ -231,9 +207,7 @@ public class RedeNeuralMLP {
         return erroExemplo;
     }
 
-    /**
-     * Retorna o índice da classe prevista pela rede (neurônio de saída com maior valor).
-     */
+    // Retorna o índice da classe prevista pela rede (neurônio de saída com maior valor).
     public int obterIndiceClassePrevista() {
         int indiceMaior = 0;
         double maiorValor = this.neuroniosSaida[0].getSaida();

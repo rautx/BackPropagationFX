@@ -221,3 +221,18 @@
     -fx-border-radius: 6px;
     -fx-background-radius: 6px;
 }
+
+/* Gráfico de Pizza (Acertos vs Erros) */
+.default-color0.chart-pie {
+    -fx-pie-color: #006729;
+}
+
+.default-color1.chart-pie {
+    -fx-pie-color: #dc2626;
+}
+
+.chart-pie-label {
+    -fx-fill: #1e293b;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}

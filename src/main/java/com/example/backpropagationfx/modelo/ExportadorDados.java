@@ -6,15 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Utilitário para exportar o histórico de erros do treinamento e a matriz de confusão
- * para arquivos CSV (requisito bônus).
- */
+// Utilitário para exportar o histórico de erros do treinamento e a matriz de confusão para arquivos CSV (requisito bônus).
 public class ExportadorDados {
 
-    /**
-     * Exporta as medições de cada época (época, erro médio, taxa eta e tempo) para CSV.
-     */
+    // Exporta as medições de cada época (época, erro médio, taxa eta e tempo) para CSV.
     public static boolean exportarHistoricoErroCsv(File destino, ArrayList<RegistroEpoca> historico) {
         boolean sucesso = true;
         BufferedWriter escritor = null;
@@ -46,9 +41,7 @@ public class ExportadorDados {
         return sucesso;
     }
 
-    /**
-     * Exporta a matriz de confusão e suas métricas para arquivo CSV.
-     */
+    // Exporta a matriz de confusão e suas métricas para arquivo CSV.
     public static boolean exportarMatrizConfusaoCsv(File destino, MatrizConfusao matriz) {
         boolean sucesso = true;
         BufferedWriter escritor = null;
@@ -84,9 +77,10 @@ public class ExportadorDados {
             // Métricas
             escritor.write("AcuraciaGeral," + String.format(java.util.Locale.US, "%.2f%%", matriz.getAcuraciaGeral()) + "\n\n");
 
-            escritor.write("Classe,Precisao,Revocacao\n");
+            escritor.write("Classe,Acuracia,Precisao,Revocacao\n");
             for (int i = 0; i < n; i = i + 1) {
                 String linhaMetrica = classes.get(i) + "," +
+                        String.format(java.util.Locale.US, "%.2f%%", matriz.getAcuraciaClasse(i)) + "," +
                         String.format(java.util.Locale.US, "%.2f%%", matriz.getPrecisaoClasse(i)) + "," +
                         String.format(java.util.Locale.US, "%.2f%%", matriz.getRevocacaoClasse(i)) + "\n";
                 escritor.write(linhaMetrica);

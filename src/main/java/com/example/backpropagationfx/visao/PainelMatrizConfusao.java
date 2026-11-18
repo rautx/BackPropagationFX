@@ -14,13 +14,7 @@ import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
 
-/**
- * Componente visual que desenha a Matriz de Confusão em uma grade interativa,
- * com células coloridas:
- * - Diagonal principal (acertos) destacada em tons de azul.
- * - Erros fora da diagonal destacados em tons suaves de vermelho.
- * - Totais calculados por linha e por coluna.
- */
+// Componente visual que desenha a Matriz de Confusão em uma grade interativa, com células coloridas: - Diagonal principal (acertos) destacada em tons de azul. - Erros fora da diagonal destacados em tons suaves de vermelho. - Totais calculados por linha e por coluna.
 public class PainelMatrizConfusao extends VBox {
 
     public PainelMatrizConfusao() {
@@ -29,9 +23,7 @@ public class PainelMatrizConfusao extends VBox {
         this.setAlignment(Pos.CENTER);
     }
 
-    /**
-     * Renderiza a matriz de confusão a partir dos dados calculados no teste.
-     */
+    // Renderiza a matriz de confusão a partir dos dados calculados no teste.
     public void desenharMatriz(MatrizConfusao matriz) {
         this.getChildren().clear();
 

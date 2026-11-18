@@ -2,11 +2,7 @@ package com.example.backpropagationfx.modelo;
 
 import java.util.ArrayList;
 
-/**
- * Responsável por gerenciar a rotina de treinamento da MLP em uma thread separada.
- * Controla os laços das épocas, cálculo do erro médio da rede,
- * detecção de estagnação (platô), pausa, retomada e critérios de parada.
- */
+// Responsável por gerenciar a rotina de treinamento da MLP em uma thread separada. Controla os laços das épocas, cálculo do erro médio da rede, detecção de estagnação (platô), pausa, retomada e critérios de parada.
 public class TreinadorMLP implements Runnable {
 
     private RedeNeuralMLP rede;
@@ -114,12 +110,7 @@ public class TreinadorMLP implements Runnable {
         this.aguardandoDecisaoPlato = false;
     }
 
-    /**
-     * Resposta do usuário quando um platô é detectado:
-     * opcao 1: Interromper treinamento.
-     * opcao 2: Continuar sem alterar eta.
-     * opcao 3: Continuar reduzindo eta em 10% (eta = 0.9 * eta).
-     */
+    // Resposta do usuário quando um platô é detectado: opcao 1: Interromper treinamento. opcao 2: Continuar sem alterar eta. opcao 3: Continuar reduzindo eta em 10% (eta = 0.9 * eta).
     public void aplicarDecisaoPlato(int opcao) {
         if (opcao == 1) {
             // Interromper

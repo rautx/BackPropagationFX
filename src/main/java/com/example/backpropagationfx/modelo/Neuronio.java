@@ -1,10 +1,6 @@
 package com.example.backpropagationfx.modelo;
 
-/**
- * Representa um neurônio individual na rede neural artificial.
- * Guarda o valor de net (soma ponderada), a saída ativada,
- * a derivada e o erro/gradiente calculado no backpropagation.
- */
+// Representa um neurônio individual na rede neural artificial. Guarda o valor de net (soma ponderada), a saída ativada, a derivada e o erro/gradiente calculado no backpropagation.
 public class Neuronio {
 
     // Soma ponderada das entradas multiplicadas pelos pesos
@@ -58,13 +54,7 @@ public class Neuronio {
         this.erroGradiente = erroGradiente;
     }
 
-    /**
-     * Aplica a função de transferência e calcula sua respectiva derivada.
-     * Tipos permitidos:
-     * 1 = Linear: f(net) = net / 10, f'(net) = 1 / 10
-     * 2 = Logística: f(net) = 1 / (1 + e^-net), f'(net) = saida * (1 - saida)
-     * 3 = Tangente Hiperbólica: f(net) = (1 - e^-2net) / (1 + e^-2net), f'(net) = 1 - saida^2
-     */
+    // Aplica a função de transferência e calcula sua respectiva derivada. Tipos permitidos: 1 = Linear: f(net) = net / 10, f'(net) = 1 / 10 2 = Logística: f(net) = 1 / (1 + e^-net), f'(net) = saida * (1 - saida) 3 = Tangente Hiperbólica: f(net) = (1 - e^-2net) / (1 + e^-2net), f'(net) = 1 - saida^2
     public void aplicarAtivacao(int tipoFuncao) {
         if (tipoFuncao == 1) {
             // Função Linear

@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -19,13 +20,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- * Interface gráfica principal construída em JavaFX.
- * Organizada em abas funcionais:
- * 1. Base de Dados: Carregamento, divisão e normalização dos dados.
- * 2. Configuração & Treinamento: Arquitetura da rede, funções, taxa eta, gráficos e platô.
- * 3. Avaliação & Resultados: Matriz de confusão, acurácia, precisão, revocação e exportação.
- */
+// Interface gráfica principal construída em JavaFX. Organizada em abas funcionais: 1. Base de Dados: Carregamento, divisão e normalização dos dados. 2. Configuração & Treinamento: Arquitetura da rede, funções, taxa eta, gráficos e platô. 3. Avaliação & Resultados: Matriz de confusão, acurácia, precisão, revocação e exportação.
 public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
 
     private Stage palcoPrincipal;
@@ -102,6 +97,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
     private Label rotuloConfigResumo;
     private PainelMatrizConfusao painelMatrizConfusao;
     private TableView<MetricaClasse> tabelaMetricasClasses;
+    private PieChart graficoPizzaAcertos;
     private Button botaoExportarHistorico;
     private Button botaoExportarMatriz;
 
@@ -120,9 +116,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         this.configurarAcoes();
     }
 
-    /**
-     * Monta os elementos visuais principais da aplicação.
-     */
+    // Monta os elementos visuais principais da aplicação.
     private void construirInterface() {
         // Cabeçalho superior
         HBox cabecalho = new HBox(16);
@@ -155,9 +149,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         this.setCenter(this.painelAbas);
     }
 
-    /**
-     * Cria a visualização da Aba 1: Carregamento de dados.
-     */
+    // Cria a visualização da Aba 1: Carregamento de dados.
     private Node criarAbaDados() {
         VBox conteudo = new VBox(16);
         conteudo.setPadding(new Insets(20));
@@ -316,9 +308,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         return rolagem;
     }
 
-    /**
-     * Cria a visualização da Aba 2: Configuração da Rede e Treinamento em Tempo Real.
-     */
+    // Cria a visualização da Aba 2: Configuração da Rede e Treinamento em Tempo Real.
     private Node criarAbaTreinamento() {
         HBox layoutPrincipal = new HBox(16);
         layoutPrincipal.setPadding(new Insets(16));
@@ -608,9 +598,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         return rolagem;
     }
 
-    /**
-     * Cria a visualização da Aba 3: Avaliação na Base de Teste e Matriz de Confusão.
-     */
+    // Cria a visualização da Aba 3: Avaliação na Base de Teste e Matriz de Confusão.
     private Node criarAbaAvaliacao() {
         VBox conteudo = new VBox(16);
         conteudo.setPadding(new Insets(20));
@@ -687,19 +675,28 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
 
         cardMatriz.getChildren().addAll(titMatriz, this.painelMatrizConfusao);
 
-        // Card da Tabela de Desempenho por Classe (Precisão e Revocação)
+        // Card da Tabela de Desempenho por Classe e Gráfico de Pizza
         VBox cardDesempenho = new VBox(10);
         cardDesempenho.getStyleClass().add("card");
-        cardDesempenho.setPrefWidth(380);
+        cardDesempenho.setPrefWidth(470);
 
         Label titDesemp = new Label("Desempenho Individual por Classe");
         titDesemp.getStyleClass().add("card-titulo");
 
         this.tabelaMetricasClasses = new TableView<MetricaClasse>();
         this.configurarTabelaMetricas();
-        VBox.setVgrow(this.tabelaMetricasClasses, Priority.ALWAYS);
+        this.tabelaMetricasClasses.setPrefHeight(185);
 
-        cardDesempenho.getChildren().addAll(titDesemp, this.tabelaMetricasClasses);
+        Label titPizza = new Label("Distribuição Geral no Teste (Acertos vs. Erros)");
+        titPizza.getStyleClass().add("card-titulo");
+
+        this.graficoPizzaAcertos = new PieChart();
+        this.graficoPizzaAcertos.setLegendVisible(true);
+        this.graficoPizzaAcertos.setLabelsVisible(true);
+        this.graficoPizzaAcertos.setPrefHeight(230);
+        VBox.setVgrow(this.graficoPizzaAcertos, Priority.ALWAYS);
+
+        cardDesempenho.getChildren().addAll(titDesemp, this.tabelaMetricasClasses, titPizza, this.graficoPizzaAcertos);
 
         linhaMatriz.getChildren().addAll(cardMatriz, cardDesempenho);
 
@@ -710,36 +707,36 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         return rolagem;
     }
 
-    /**
-     * Configura as colunas da tabela de Precisão e Revocação por classe.
-     */
+    // Configura as colunas da tabela de Acurácia, Precisão e Revocação por classe.
     private void configurarTabelaMetricas() {
         TableColumn<MetricaClasse, String> colClasse = new TableColumn<MetricaClasse, String>("Classe");
         colClasse.setCellValueFactory(cellData -> cellData.getValue().classeProperty());
-        colClasse.setPrefWidth(65);
+        colClasse.setPrefWidth(60);
 
         TableColumn<MetricaClasse, String> colTotal = new TableColumn<MetricaClasse, String>("Exemplos");
         colTotal.setCellValueFactory(cellData -> cellData.getValue().exemplosProperty());
-        colTotal.setPrefWidth(70);
+        colTotal.setPrefWidth(65);
 
         TableColumn<MetricaClasse, String> colAcertos = new TableColumn<MetricaClasse, String>("Acertos");
         colAcertos.setCellValueFactory(cellData -> cellData.getValue().acertosProperty());
-        colAcertos.setPrefWidth(65);
+        colAcertos.setPrefWidth(60);
+
+        TableColumn<MetricaClasse, String> colAcuracia = new TableColumn<MetricaClasse, String>("Acurácia");
+        colAcuracia.setCellValueFactory(cellData -> cellData.getValue().acuraciaProperty());
+        colAcuracia.setPrefWidth(80);
 
         TableColumn<MetricaClasse, String> colPrecisao = new TableColumn<MetricaClasse, String>("Precisão");
         colPrecisao.setCellValueFactory(cellData -> cellData.getValue().precisaoProperty());
-        colPrecisao.setPrefWidth(85);
+        colPrecisao.setPrefWidth(80);
 
         TableColumn<MetricaClasse, String> colRevocacao = new TableColumn<MetricaClasse, String>("Revocação");
         colRevocacao.setCellValueFactory(cellData -> cellData.getValue().revocacaoProperty());
-        colRevocacao.setPrefWidth(85);
+        colRevocacao.setPrefWidth(80);
 
-        this.tabelaMetricasClasses.getColumns().addAll(colClasse, colTotal, colAcertos, colPrecisao, colRevocacao);
+        this.tabelaMetricasClasses.getColumns().addAll(colClasse, colTotal, colAcertos, colAcuracia, colPrecisao, colRevocacao);
     }
 
-    /**
-     * Associa os eventos aos botões e controles da interface.
-     */
+    // Associa os eventos aos botões e controles da interface.
     private void configurarAcoes() {
         // Seleção de arquivos
         this.botaoSelecionarTreino.setOnAction(e -> this.selecionarArquivoTreino());
@@ -799,9 +796,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         }
     }
 
-    /**
-     * Processa os arquivos CSV selecionados de acordo com o modo escolhido.
-     */
+    // Processa os arquivos CSV selecionados de acordo com o modo escolhido.
     private void processarCarregamentoDados() {
         boolean sucesso = true;
 
@@ -893,9 +888,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         }
     }
 
-    /**
-     * Preenche a tabela com as primeiras linhas dos dados normalizados e one-hot.
-     */
+    // Preenche a tabela com as primeiras linhas dos dados normalizados e one-hot.
     private void preencherTabelaPrevia() {
         this.tabelaPreviaDados.getColumns().clear();
         this.tabelaPreviaDados.getItems().clear();
@@ -952,11 +945,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         }
     }
 
-    /**
-     * Atualiza o cálculo do número de neurônios ocultos com base nas heurísticas:
-     * - Aritmética: (Entradas + Saídas) / 2
-     * - Geométrica: raiz quadrada de (Entradas * Saídas)
-     */
+    // Atualiza o cálculo do número de neurônios ocultos com base nas heurísticas: - Aritmética: (Entradas + Saídas) / 2 - Geométrica: raiz quadrada de (Entradas * Saídas)
     private void atualizarCalculoOculta() {
         int e = 0;
         int s = 0;
@@ -999,9 +988,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         return tipo;
     }
 
-    /**
-     * Inicializa a rede neural em memória e desenha sua topologia no painel.
-     */
+    // Inicializa a rede neural em memória e desenha sua topologia no painel.
     private void inicializarEstruturaRedeVisual() {
         int e = 0;
         int o = 0;
@@ -1037,9 +1024,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         this.painelRede.redesenharRede(this.redeNeural, entradas, saidas);
     }
 
-    /**
-     * Inicia a rotina de treinamento com Backpropagation.
-     */
+    // Inicia a rotina de treinamento com Backpropagation.
     private void iniciarTreinamento() {
         if (this.conjuntoTreino.getQuantidadeExemplos() == 0) {
             this.exibirAlerta("Atenção", "Carregue a base de dados na Aba 1 antes de iniciar o treinamento.", Alert.AlertType.WARNING);
@@ -1159,14 +1144,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         }
     }
 
-    /**
-     * Reseta completamente o estado de treinamento:
-     * - Interrompe qualquer treino em execução;
-     * - Reinicializa a rede neural com novos pesos aleatórios (respeitando a seed se selecionada);
-     * - Limpa o gráfico da curva de erro;
-     * - Limpa a área de logs e os indicadores visuais (KPIs);
-     * - Restaura os botões de ação para o estado inicial.
-     */
+    // Reseta completamente o estado de treinamento: - Interrompe qualquer treino em execução; - Reinicializa a rede neural com novos pesos aleatórios (respeitando a seed se selecionada); - Limpa o gráfico da curva de erro; - Limpa a área de logs e os indicadores visuais (KPIs); - Restaura os botões de ação para o estado inicial.
     private void resetarTreinamento() {
         if (this.treinador != null && this.treinador.isExecutando()) {
             this.treinador.interromper();
@@ -1200,9 +1178,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         this.adicionarLog("Treinamento resetado com sucesso. Pesos reinicializados.");
     }
 
-    /**
-     * Atualiza o texto do indicador visual da época inicial antes ou durante a configuração.
-     */
+    // Atualiza o texto do indicador visual da época inicial antes ou durante a configuração.
     private void atualizarRotuloKpiEpocaInicial() {
         if (this.checkParadaEpocas.isSelected()) {
             String textoMax = this.campoMaxEpocas.getText().trim();
@@ -1215,9 +1191,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         }
     }
 
-    /**
-     * Atualização dos indicadores e gráfico em tempo real.
-     */
+    // Atualização dos indicadores e gráfico em tempo real.
     @Override
     public void aoAtualizarProgresso(int epoca, double erroMedio, double taxaAtual, long tempoDecorrido) {
         Platform.runLater(() -> {
@@ -1255,9 +1229,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         });
     }
 
-    /**
-     * Detecção de platô conforme Seção 6 do enunciado.
-     */
+    // Detecção de platô conforme Seção 6 do enunciado.
     @Override
     public void aoDetectarPlato(double desvioPadrao, double taxaAtual) {
         Platform.runLater(() -> {
@@ -1298,9 +1270,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         });
     }
 
-    /**
-     * Término do treinamento da rede neural.
-     */
+    // Término do treinamento da rede neural.
     @Override
     public void aoFinalizarTreinamento(String motivoFinalizacao, int epocasExecutadas, double erroFinal) {
         Platform.runLater(() -> {
@@ -1329,9 +1299,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         });
     }
 
-    /**
-     * Aplica a rede treinada à base de teste e gera a Matriz de Confusão.
-     */
+    // Aplica a rede treinada à base de teste e gera a Matriz de Confusão.
     private void executarAvaliacaoTeste() {
         if (this.redeNeural == null || this.conjuntoTeste.getQuantidadeExemplos() == 0) {
             this.exibirAlerta("Aviso", "Treine a rede neural antes de avaliar na base de teste.", Alert.AlertType.WARNING);
@@ -1379,12 +1347,13 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
             // Desenha a Matriz de Confusão
             this.painelMatrizConfusao.desenharMatriz(this.matrizConfusaoAtual);
 
-            // Preenche a tabela de Precisão e Revocação por classe
+            // Preenche a tabela de Acurácia, Precisão e Revocação por classe
             this.tabelaMetricasClasses.getItems().clear();
             for (int c = 0; c < nomesClasses.size(); c = c + 1) {
                 String nome = nomesClasses.get(c);
                 int totalExemplos = this.matrizConfusaoAtual.getTotalClasseReal(c);
                 int acertosClasse = this.matrizConfusaoAtual.getValor(c, c);
+                double acuraciaClasse = this.matrizConfusaoAtual.getAcuraciaClasse(c);
                 double precisao = this.matrizConfusaoAtual.getPrecisaoClasse(c);
                 double revocacao = this.matrizConfusaoAtual.getRevocacaoClasse(c);
 
@@ -1392,10 +1361,23 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
                         nome,
                         String.valueOf(totalExemplos),
                         String.valueOf(acertosClasse),
+                        String.format("%.2f%%", acuraciaClasse),
                         String.format("%.2f%%", precisao),
                         String.format("%.2f%%", revocacao)
                 );
                 this.tabelaMetricasClasses.getItems().add(metrica);
+            }
+
+            // Atualiza o gráfico de pizza (Acertos vs Erros no Teste)
+            this.graficoPizzaAcertos.getData().clear();
+            int totalErros = totalTeste - acertos;
+
+            PieChart.Data fatiaAcertos = new PieChart.Data("Acertos (" + acertos + ")", acertos);
+            this.graficoPizzaAcertos.getData().add(fatiaAcertos);
+
+            if (totalErros > 0) {
+                PieChart.Data fatiaErros = new PieChart.Data("Erros (" + totalErros + ")", totalErros);
+                this.graficoPizzaAcertos.getData().add(fatiaErros);
             }
 
             this.botaoExportarMatriz.setDisable(false);
@@ -1455,20 +1437,20 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         alerta.showAndWait();
     }
 
-    /**
-     * DTO simples para preenchimento da tabela de desempenho por classe.
-     */
+    // DTO simples para preenchimento da tabela de desempenho por classe.
     public static class MetricaClasse {
         private final SimpleStringProperty classe;
         private final SimpleStringProperty exemplos;
         private final SimpleStringProperty acertos;
+        private final SimpleStringProperty acuracia;
         private final SimpleStringProperty precisao;
         private final SimpleStringProperty revocacao;
 
-        public MetricaClasse(String classe, String exemplos, String acertos, String precisao, String revocacao) {
+        public MetricaClasse(String classe, String exemplos, String acertos, String acuracia, String precisao, String revocacao) {
             this.classe = new SimpleStringProperty(classe);
             this.exemplos = new SimpleStringProperty(exemplos);
             this.acertos = new SimpleStringProperty(acertos);
+            this.acuracia = new SimpleStringProperty(acuracia);
             this.precisao = new SimpleStringProperty(precisao);
             this.revocacao = new SimpleStringProperty(revocacao);
         }
@@ -1476,6 +1458,7 @@ public class TelaPrincipal extends BorderPane implements OuvinteTreinamento {
         public SimpleStringProperty classeProperty() { return this.classe; }
         public SimpleStringProperty exemplosProperty() { return this.exemplos; }
         public SimpleStringProperty acertosProperty() { return this.acertos; }
+        public SimpleStringProperty acuraciaProperty() { return this.acuracia; }
         public SimpleStringProperty precisaoProperty() { return this.precisao; }
         public SimpleStringProperty revocacaoProperty() { return this.revocacao; }
     }

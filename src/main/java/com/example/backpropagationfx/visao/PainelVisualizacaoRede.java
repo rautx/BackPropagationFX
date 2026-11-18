@@ -13,12 +13,7 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
-/**
- * Componente visual em JavaFX que desenha graficamente a arquitetura da rede neural.
- * Exibe os neurônios em 3 colunas (Entrada, Oculta e Saída) e as conexões sinápticas.
- * A espessura da linha reflete a magnitude do peso e a cor reflete o sinal (positivo ou negativo).
- * Ao passar o mouse sobre uma conexão, exibe o valor do peso.
- */
+// Componente visual em JavaFX que desenha graficamente a arquitetura da rede neural. Exibe os neurônios em 3 colunas (Entrada, Oculta e Saída) e as conexões sinápticas. A espessura da linha reflete a magnitude do peso e a cor reflete o sinal (positivo ou negativo). Ao passar o mouse sobre uma conexão, exibe o valor do peso.
 public class PainelVisualizacaoRede extends Pane {
 
     private Label rotuloStatusPeso;
@@ -28,9 +23,7 @@ public class PainelVisualizacaoRede extends Pane {
         this.setStyle("-fx-background-color: #f8fafc; -fx-border-color: #e2e8f0; -fx-border-radius: 8; -fx-background-radius: 8;");
     }
 
-    /**
-     * Redesenha toda a estrutura da rede com as conexões e os valores dos pesos atuais.
-     */
+    // Redesenha toda a estrutura da rede com as conexões e os valores dos pesos atuais.
     public void redesenharRede(RedeNeuralMLP rede, ArrayList<String> nomesEntradas, ArrayList<String> nomesSaidas) {
         this.getChildren().clear();
 

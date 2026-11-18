@@ -1,4 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PropertiesComponent">{}</component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f94cbb66-ff96-49a3-b409-c41bd0d8876b" name="Changes" comment="arrumando o .idea">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/CalculadoraEstatistica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/CalculadoraEstatistica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ConjuntoDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ConjuntoDados.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExemploDado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExemploDado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExportadorDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExportadorDados.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/MatrizConfusao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/MatrizConfusao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/Neuronio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/Neuronio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/OuvinteTreinamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/OuvinteTreinamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/RedeNeuralMLP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/RedeNeuralMLP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/RegistroEpoca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/RegistroEpoca.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/TreinadorMLP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/TreinadorMLP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/PainelMatrizConfusao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/PainelMatrizConfusao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/PainelVisualizacaoRede.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/PainelVisualizacaoRede.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/TelaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/TelaPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/backpropagationfx/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/backpropagationfx/estilos.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "rautx"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/rautx/BackPropagationFX.git",
+    "accountId": "7341cd63-f3f1-49c3-b8d7-82b6d1696578"
+  }
+}]]></component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="3MG4D0ljvptOkNwpemvFShHDS9j" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Launcher.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.33813.99" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.33813.99" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f94cbb66-ff96-49a3-b409-c41bd0d8876b" name="Changes" comment="" />
+      <created>1794963454718</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1794963454718</updated>
+      <workItem from="1794963465416" duration="2367000" />
+    </task>
+    <task id="LOCAL-00001" summary="arrumando o .idea">
+      <option name="closed" value="true" />
+      <created>1794963575303</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1794963575304</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="arrumando o .idea" />
+    <option name="LAST_COMMIT_MESSAGE" value="arrumando o .idea" />
+  </component>
 </project>
