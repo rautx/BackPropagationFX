@@ -4,36 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f94cbb66-ff96-49a3-b409-c41bd0d8876b" name="Changes" comment="arrumando umas fita ai de acuracia e pizzas.">
+    <list default="true" id="f94cbb66-ff96-49a3-b409-c41bd0d8876b" name="Changes" comment="arrumando 2.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ConjuntoDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ConjuntoDados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExportadorDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExportadorDados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/MatrizConfusao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/MatrizConfusao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/Neuronio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/Neuronio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/TreinadorMLP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/TreinadorMLP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/TelaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/visao/TelaPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RELATORIO_EXPERIMENTOS.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/verificar_nucleo.cmd" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="48" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "rautx"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;rautx&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/rautx/BackPropagationFX.git",
-    "accountId": "7341cd63-f3f1-49c3-b8d7-82b6d1696578"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/rautx/BackPropagationFX.git&quot;,
+    &quot;accountId&quot;: &quot;7341cd63-f3f1-49c3-b8d7-82b6d1696578&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -41,10 +41,14 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 8
-}]]></component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="3MG4D0ljvptOkNwpemvFShHDS9j" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -54,6 +58,7 @@
   "keyToString": {
     "Application.Launcher.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
@@ -82,7 +87,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1794963454718</updated>
-      <workItem from="1794963465416" duration="3494000" />
+      <workItem from="1794963465416" duration="7383000" />
+      <workItem from="1794974170963" duration="1069000" />
     </task>
     <task id="LOCAL-00001" summary="arrumando o .idea">
       <option name="closed" value="true" />
@@ -100,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1794967455091</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="arrumando 2.">
+      <option name="closed" value="true" />
+      <created>1794969491346</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1794969491346</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -109,6 +123,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="arrumando o .idea" />
     <MESSAGE value="arrumando umas fita ai de acuracia e pizzas." />
-    <option name="LAST_COMMIT_MESSAGE" value="arrumando umas fita ai de acuracia e pizzas." />
+    <MESSAGE value="arrumando 2." />
+    <option name="LAST_COMMIT_MESSAGE" value="arrumando 2." />
   </component>
 </project>
