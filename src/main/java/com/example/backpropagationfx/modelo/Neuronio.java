@@ -1,18 +1,18 @@
 package com.example.backpropagationfx.modelo;
 
-// Representa um neurônio individual na rede neural artificial. Guarda o valor de net (soma ponderada), a saída ativada, a derivada e o erro/gradiente calculado no backpropagation.
+// neurônio individual na rede neural artificial guarda o valor de net (soma ponderada), a saída ativada, a derivada e o erro/gradiente calculado no backpropagation.
 public class Neuronio {
 
-    // Soma ponderada das entradas multiplicadas pelos pesos
+    // soma ponderada das entradas multiplicadas pelos pesos
     private double net;
 
-    // Saída do neurônio após a aplicação da função de ativação
+    // saída do neurônio após a aplicação da função de ativação
     private double saida;
 
-    // Valor da derivada da função de ativação avaliada na saída
+    // valor da derivada da função de ativação avaliada na saída
     private double derivada;
 
-    // Gradiente do erro calculado para este neurônio
+    // gradiente do erro calculado para este neurônio
     private double erroGradiente;
 
     public Neuronio() {
@@ -54,7 +54,7 @@ public class Neuronio {
         this.erroGradiente = erroGradiente;
     }
 
-    // Aplica a função de transferência e calcula sua respectiva derivada. Tipos
+    // aplica a função de transferência e calcula sua respectiva derivada. Tipos
     // permitidos: 1 = Linear: f(net) = net / 10, f'(net) = 1 / 10 2 = Logística:
     // f(net) = 1 / (1 + e^-net), f'(net) = saida * (1 - saida) 3 = Tangente
     // Hiperbólica: f(net) = (1 - e^-2net) / (1 + e^-2net), f'(net) = 1 - saida^2
@@ -70,8 +70,7 @@ public class Neuronio {
                 this.saida = 1.0 / (1.0 + expNegativo);
                 this.derivada = this.saida * (1.0 - this.saida);
             } else {
-                // Função Tangente Hiperbólica (Math.tanh equivale a formula e evita estouro
-                // numerico)
+                // Função Tangente Hiperbólica (Math.tanh equivale a formula e evita estouro numerico)
                 this.saida = Math.tanh(this.net);
                 this.derivada = 1.0 - (this.saida * this.saida);
             }

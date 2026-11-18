@@ -7,22 +7,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-// Representa um conjunto de dados carregado a partir de um arquivo CSV. Gerencia a lista de exemplos, nomes de colunas, classes únicas, valores mínimos e máximos para normalização e divisão de treino/teste.
+// representa um conjunto de dados carregado a partir de um arquivo CSV
+// gerencia: a lista de exemplos, nomes de colunas, classes únicas, valores mínimos e máximos para normalização e divisão de treino/teste.
 public class ConjuntoDados {
 
-    // Nomes das colunas de entrada obtidos do cabeçalho
+    // nomes das colunas de entrada obtidos do cabeçalho
     private ArrayList<String> nomesAtributos;
 
-    // Lista de todas as classes distintas encontradas na base
+    // lista de todas as classes distintas encontradas na base
     private ArrayList<String> classesUnicas;
 
-    // Lista contendo todos os exemplos carregados
+    // lista contendo todos os exemplos carregados
     private ArrayList<ExemploDado> exemplos;
 
-    // Menores valores de cada atributo calculados na base de treino
+    // menores valores de cada atributo calculados na base de treino
     private double[] menoresValores;
 
-    // Maiores valores de cada atributo calculados na base de treino
+    // maiores valores de cada atributo calculados na base de treino
     private double[] maioresValores;
 
     public ConjuntoDados() {
@@ -83,7 +84,8 @@ public class ConjuntoDados {
         return total;
     }
 
-    // Carrega os dados de um arquivo CSV. A última coluna é sempre considerada como a classe. As demais colunas são os atributos numéricos de entrada.
+    // carrega os dados de um arquivo CSV
+    // a última coluna é sempre considerada como a classe e as outras demais colunas são os atributos de entrada.
     public boolean carregarArquivoCsv(File arquivo) {
         boolean sucesso = true;
         this.nomesAtributos.clear();
@@ -102,13 +104,13 @@ public class ConjuntoDados {
                     throw new IOException("CSV deve conter atributos e classe.");
                 }
 
-                // Guarda os nomes dos atributos (todas as colunas exceto a última)
+                // guarda os nomes dos atributos (todas as colunas tirando a última)
                 for (int i = 0; i < qtdColunas - 1; i = i + 1) {
                     String nome = cabecalho[i].trim();
                     this.nomesAtributos.add(nome);
                 }
 
-                // Lê as linhas com os dados
+                // lê as linhas com os dados
                 linha = leitor.readLine();
                 while (linha != null) {
                     linha = linha.trim();
@@ -125,13 +127,13 @@ public class ConjuntoDados {
                                 }
                             }
 
-                            // Rótulo da classe com trim para remover espaços em branco
+                            // rótulo da classe usando trim para remover espaços em branco
                             String rotulo = partes[qtdColunas - 1].trim();
                             if (rotulo.isEmpty()) {
                                 throw new IOException("Classe vazia no CSV.");
                             }
 
-                            // Verifica se a classe já está na lista de classes únicas sem usar break
+                            // verifica se a classe já está na lista de classes
                             boolean classeExiste = false;
                             int k = 0;
                             while (k < this.classesUnicas.size() && !classeExiste) {
@@ -178,7 +180,7 @@ public class ConjuntoDados {
         return sucesso;
     }
 
-    // Calcula os valores mínimo e máximo de cada atributo na base de treinamento.
+    // calcula os valores mínimo e máximo de cada atributo na base de treinamento.
     public void calcularMinimosEMaximos() {
         int qtdAtributos = this.getQuantidadeAtributos();
         int qtdExemplos = this.getQuantidadeExemplos();
@@ -208,7 +210,9 @@ public class ConjuntoDados {
         }
     }
 
-    // Normaliza os atributos de entrada de cada exemplo para a faixa [0, 1]. Utiliza os menores e maiores valores informados (provenientes do treino). Trata o caso especial em que o máximo é igual ao mínimo.
+    // normaliza os atributos de entrada de cada exemplo para a faixa [0, 1]
+    // utiliza os menores e maiores valores informados (provenientes do treino)
+    // e trata o caso especial em que o máximo é igual ao mínimo.
     public void normalizar(double[] menores, double[] maiores) {
         this.menoresValores = menores;
         this.maioresValores = maiores;
@@ -239,7 +243,9 @@ public class ConjuntoDados {
         }
     }
 
-    // Monta o vetor de saída desejada (One-Hot) para cada exemplo. Para Linear e Logística: 1.0 na classe correspondente e 0.0 nas demais. Para Tangente Hiperbólica: 1.0 na classe correspondente e -1.0 nas demais.
+    // monta o vetor de saída desejada para cada exemplo
+    // para Linear e Logística: 1.0 na classe correspondente e 0.0 nas demais
+    // para Tangente Hiperbólica: 1.0 na classe correspondente e -1.0 nas outras
     public void codificarSaidasOneHot(int tipoFuncao, ArrayList<String> listaClassesReferencia) {
         int qtdClasses = listaClassesReferencia.size();
         int qtdExemplos = this.getQuantidadeExemplos();
@@ -267,13 +273,15 @@ public class ConjuntoDados {
         }
     }
 
-    // Divide este conjunto de dados em dois novos conjuntos (treino e teste) de acordo com a porcentagem indicada (exemplo: 70.0 para 70% de treino). Aplica embaralhamento usando uma semente (seed) aleatória ou aleatório puro se usarSeed for falso.
+    // divide este conjunto de dados em dois novos conjuntos (treino e teste)
+    // e de acordo com a porcentagem indicada (tipo 70.0 para 70% de treino)
+    // aplica embaralhamento usando uma semente (seed) aleatória ou "aleatório puro" se usarSeed for falso
     public ConjuntoDados[] dividirTreinoETeste(double porcentagemTreino, boolean usarSeed, long valorSeed) {
         ConjuntoDados[] resultado = new ConjuntoDados[2];
         ConjuntoDados baseTreino = new ConjuntoDados();
         ConjuntoDados baseTeste = new ConjuntoDados();
 
-        // Copia referências de atributos e classes
+        // copia referências de atributos e classes
         for (int i = 0; i < this.nomesAtributos.size(); i = i + 1) {
             baseTreino.getNomesAtributos().add(this.nomesAtributos.get(i));
             baseTeste.getNomesAtributos().add(this.nomesAtributos.get(i));
@@ -283,13 +291,13 @@ public class ConjuntoDados {
             baseTeste.getClassesUnicas().add(this.classesUnicas.get(i));
         }
 
-        // Clona a lista de exemplos para embaralhar sem alterar a ordem visual original
+        // clona a lista para embaralhar sem alterar a ordem visual original
         ArrayList<ExemploDado> listaCopia = new ArrayList<ExemploDado>();
         for (int i = 0; i < this.exemplos.size(); i = i + 1) {
             listaCopia.add(this.exemplos.get(i));
         }
 
-        // Embaralhamento (Algoritmo de Fisher-Yates implementado manualmente)
+        // embaralhamento
         Random gerador = null;
         if (usarSeed) {
             gerador = new Random(valorSeed);

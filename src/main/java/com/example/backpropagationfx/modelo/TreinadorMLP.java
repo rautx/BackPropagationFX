@@ -2,14 +2,14 @@ package com.example.backpropagationfx.modelo;
 
 import java.util.ArrayList;
 
-// Responsável por gerenciar a rotina de treinamento da MLP em uma thread separada. Controla os laços das épocas, cálculo do erro médio da rede, detecção de estagnação (platô), pausa, retomada e critérios de parada.
+// gerencia a rotina de treinamento da MLP e controla os laços das épocas, cálculo do erro médio da rede, detecção de estagnação (platô), pausa, retomada e critérios de parada.
 public class TreinadorMLP implements Runnable {
 
     private RedeNeuralMLP rede;
     private ConjuntoDados dadosTreino;
     private OuvinteTreinamento ouvinte;
 
-    // Configurações do treinamento
+    // configurações do treinamento
     private double taxaAprendizagem;
     private boolean usarCriterioEpocas;
     private int maximoEpocas;
@@ -17,17 +17,17 @@ public class TreinadorMLP implements Runnable {
     private double erroMinimoLimiar;
     private double limiarDesvioPlato;
 
-    // Flags de controle de fluxo de execução
+    // flags de controle de fluxo de execução
     private volatile boolean executando;
     private volatile boolean pausado;
     private volatile boolean interrompido;
     private volatile boolean aguardandoDecisaoPlato;
 
-    // Histórico de medições
+    // histórico de medições
     private ArrayList<RegistroEpoca> historicoTreinamento;
     private ArrayList<Double> janelaErrosPlato;
 
-    // Métricas finais
+    // métricas finais
     private int totalEpocasExecutadas;
     private double erroMedioFinal;
     private String motivoEncerramento;
@@ -110,19 +110,19 @@ public class TreinadorMLP implements Runnable {
         this.aguardandoDecisaoPlato = false;
     }
 
-    // Resposta do usuário quando um platô é detectado: opcao 1: Interromper treinamento. opcao 2: Continuar sem alterar eta. opcao 3: Continuar reduzindo eta em 10% (eta = 0.9 * eta).
+    // resposta do usuário quando um platô é detectado: opcao 1: Interromper treinamento. opcao 2: Continuar sem alterar eta. opcao 3: Continuar reduzindo eta em 10% (eta = 0.9 * eta).
     public void aplicarDecisaoPlato(int opcao) {
         if (opcao == 1) {
-            // Interromper
+            // interromper
             this.interromper();
         } else {
             if (opcao == 2) {
-                // Continuar sem alterar
-                this.janelaErrosPlato.clear(); // Limpa a janela para não disparar no mesmo instante
+                // continuar sem alterar
+                this.janelaErrosPlato.clear(); // limpa a janela para não disparar no mesmo instante
                 this.retomar();
             } else {
                 if (opcao == 3) {
-                    // Reduz em 10%
+                    // reduz em 10%
                     this.taxaAprendizagem = this.taxaAprendizagem * 0.9;
                     this.janelaErrosPlato.clear();
                     this.retomar();
@@ -147,7 +147,7 @@ public class TreinadorMLP implements Runnable {
 
         while (deveContinuar) {
 
-            // Tratamento de pausa do treinamento utilizando laço com flag
+            // tratamento de pausa do treinamento utilizando laço com flag
             while (this.pausado && !this.interrompido) {
                 try {
                     Thread.sleep(100);
@@ -162,42 +162,42 @@ public class TreinadorMLP implements Runnable {
             } else {
                 double somaErrosExemplos = 0.0;
 
-                // Percorre os exemplos de treino (padrão a padrão)
+                // percorre os exemplos de treino (padrão a padrão)
                 for (int i = 0; i < totalExemplos && !this.interrompido; i = i + 1) {
                     ExemploDado exemplo = listaExemplos.get(i);
                     double[] entradas = exemplo.getAtributosNormalizados();
                     double[] desejados = exemplo.getVetorDesejado();
 
-                    // Treina o exemplo atual
+                    // treina o exemplo atual
                     this.rede.treinarExemplo(entradas, desejados, this.taxaAprendizagem);
 
-                    // Acumula o erro quadrático
+                    // acumula o erro quadrático
                     double erroExemplo = this.rede.calcularErroExemplo(desejados);
                     somaErrosExemplos = somaErrosExemplos + erroExemplo;
                 }
 
-                // Se o usuario interrompeu durante uma epoca, nao registra epoca parcial.
+                // se o usuario interrompeu durante uma epoca, nao registra epoca parcial.
                 if (this.interrompido) {
                     deveContinuar = false;
                     this.motivoEncerramento = "Treinamento interrompido pelo usuario.";
                 } else {
-                    // Erro médio da rede nesta época
+                    // erro médio da rede nesta época
                     double erroMedioEpoca = somaErrosExemplos / (double) totalExemplos;
                     this.erroMedioFinal = erroMedioEpoca;
                     this.totalEpocasExecutadas = epocaAtual;
 
                     long tempoDecorrido = System.currentTimeMillis() - tempoInicio;
 
-                    // Registra no histórico
+                    // registra no histórico
                     RegistroEpoca registro = new RegistroEpoca(epocaAtual, erroMedioEpoca, this.taxaAprendizagem, tempoDecorrido);
                     this.historicoTreinamento.add(registro);
 
-                    // Notifica a interface gráfica
+                    // notifica a interface gráfica
                     if (this.ouvinte != null) {
                         this.ouvinte.aoAtualizarProgresso(epocaAtual, erroMedioEpoca, this.taxaAprendizagem, tempoDecorrido);
                     }
 
-                    // Verificação dos critérios de parada
+                    // verificação dos critérios de parada
                     if (this.usarCriterioErro) {
                         if (erroMedioEpoca <= this.erroMinimoLimiar) {
                             deveContinuar = false;
@@ -212,13 +212,13 @@ public class TreinadorMLP implements Runnable {
                         }
                     }
 
-                    // Gerenciamento da janela de erros para detecção de platô (mínimo 10 épocas)
+                    // gerenciamento da janela de erros para detecção de platô (mínimo 10 épocas)
                     this.janelaErrosPlato.add(erroMedioEpoca);
                     if (this.janelaErrosPlato.size() > 10) {
                         this.janelaErrosPlato.remove(0);
                     }
 
-                    // Nao pedir decisao de plato quando o treino ja atingiu a parada.
+                    // nao pedir decisao de plato quando o treino ja atingiu a parada.
                     if (deveContinuar && this.janelaErrosPlato.size() == 10 && !this.aguardandoDecisaoPlato) {
                         double desvioPadrao = CalculadoraEstatistica.calcularDesvioPadrao(this.janelaErrosPlato);
                         if (desvioPadrao <= this.limiarDesvioPlato && desvioPadrao >= 0.0) {
@@ -232,7 +232,7 @@ public class TreinadorMLP implements Runnable {
 
                     epocaAtual = epocaAtual + 1;
 
-                    // Pequeno intervalo para permitir atualização fluida da tela e não sobrecarregar a CPU
+                    // pequeno intervalo para permitir atualização fluida da tela e não sobrecarregar a CPU
                     try {
                         Thread.sleep(1);
                     } catch (InterruptedException e) {

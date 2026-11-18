@@ -2,10 +2,9 @@ package com.example.backpropagationfx.modelo;
 
 import java.util.ArrayList;
 
-// Funções auxiliares para cálculos estatísticos elementares (média e desvio padrão), utilizadas na detecção de platô (estagnação do treinamento).
+// cálculos de média e desvio padrão, usados na detecção de platô
 public class CalculadoraEstatistica {
 
-    // Calcula a média aritmética de uma lista de valores.
     public static double calcularMedia(ArrayList<Double> valores) {
         double media = 0.0;
         int tamanho = valores.size();
@@ -19,7 +18,6 @@ public class CalculadoraEstatistica {
         return media;
     }
 
-    // Calcula o desvio padrão de uma lista de valores.
     public static double calcularDesvioPadrao(ArrayList<Double> valores) {
         double desvioPadrao = 0.0;
         int tamanho = valores.size();
@@ -32,7 +30,7 @@ public class CalculadoraEstatistica {
                 somaDiferencasQuadradas = somaDiferencasQuadradas + (diferenca * diferenca);
             }
 
-            // Variância (usando N - 1 para desvio padrão amostral)
+            // variância (usando N - 1 para desvio padrão amostral)
             double variancia = somaDiferencasQuadradas / (double) (tamanho - 1);
             desvioPadrao = Math.sqrt(variancia);
         }

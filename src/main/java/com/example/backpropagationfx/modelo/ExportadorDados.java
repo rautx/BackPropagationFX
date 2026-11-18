@@ -6,10 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-// Utilitário para exportar o histórico de erros do treinamento e a matriz de confusão para arquivos CSV (requisito bônus).
+// usei para exportar o histórico de erros do treinamento e a matriz de confusão para arquivos CSV (requisito bônus).
 public class ExportadorDados {
 
-    // Exporta as medições de cada época (época, erro médio, taxa eta e tempo) para CSV.
+    // exporta as medições de cada época (época, erro médio, taxa eta e tempo) para CSV.
     public static boolean exportarHistoricoErroCsv(File destino, ArrayList<RegistroEpoca> historico) {
         boolean sucesso = true;
         BufferedWriter escritor = null;
@@ -41,7 +41,7 @@ public class ExportadorDados {
         return sucesso;
     }
 
-    // Exporta a matriz de confusão e suas métricas para arquivo CSV.
+    // exporta a matriz de confusão e suas métricas para arquivo CSV.
     public static boolean exportarMatrizConfusaoCsv(File destino, MatrizConfusao matriz) {
         boolean sucesso = true;
         BufferedWriter escritor = null;
@@ -51,14 +51,14 @@ public class ExportadorDados {
             ArrayList<String> classes = matriz.getNomesClasses();
             int n = matriz.getQuantidadeClasses();
 
-            // Cabeçalho
+            // cabeçalho
             escritor.write("ClasseReal");
             for (int c = 0; c < n; c = c + 1) {
                 escritor.write("," + classes.get(c));
             }
             escritor.write(",Total\n");
 
-            // Linhas de dados
+            // linhas de dados
             for (int l = 0; l < n; l = l + 1) {
                 escritor.write(classes.get(l));
                 for (int c = 0; c < n; c = c + 1) {
@@ -67,14 +67,14 @@ public class ExportadorDados {
                 escritor.write("," + matriz.getTotalClasseReal(l) + "\n");
             }
 
-            // Linha de total previsto
+            // linha de total previsto
             escritor.write("TotalPrevisto");
             for (int c = 0; c < n; c = c + 1) {
                 escritor.write("," + matriz.getTotalClassePrevista(c));
             }
             escritor.write("," + matriz.getTotalGeral() + "\n\n");
 
-            // Métricas
+            // métricas
             escritor.write("AcuraciaGeral," + String.format(java.util.Locale.US, "%.2f%%", matriz.getAcuraciaGeral()) + "\n\n");
 
             escritor.write("Classe,AcuraciaPorClasse,Precisao,Revocacao\n");
@@ -93,7 +93,7 @@ public class ExportadorDados {
                 try {
                     escritor.close();
                 } catch (IOException ex) {
-                    // Ignora
+                    // sla
                 }
             }
         }

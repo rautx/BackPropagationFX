@@ -1,6 +1,7 @@
 package com.example.backpropagationfx.modelo;
 
-// Guarda os dados de medição de uma época de treinamento. Utilizado para atualizar gráficos em tempo real, tabelas e exportar para CSV.
+// guarda os dados de medição de uma época de treinamento
+// utilizado para atualizar gráficos em tempo real, tabelas e exportar para CSV
 public class RegistroEpoca {
 
     private int numeroEpoca;

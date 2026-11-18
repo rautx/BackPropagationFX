@@ -2,16 +2,16 @@ package com.example.backpropagationfx.modelo;
 
 import java.util.ArrayList;
 
-// Representa a matriz de confusão para avaliar o classificador. As linhas representam as classes reais e as colunas as classes previstas. Calcula métricas fundamentais: Acurácia Geral, Precisão e Revocação por classe.
+// matriz de confusão para avaliar o classificador e as linhas representam as classes reais e as colunas as classes previstas, calcula métricas fundamentais: Acurácia Geral, Precisão e Revocação por classe.
 public class MatrizConfusao {
 
-    // Nomes das classes
+    // nomes das classes
     private ArrayList<String> nomesClasses;
 
-    // Quantidade de classes
+    // quantidade de classes
     private int quantidadeClasses;
 
-    // Matriz de contagem: [classeReal][classePrevista]
+    // matriz de contagem: [classeReal][classePrevista]
     private int[][] matriz;
 
     public MatrizConfusao(ArrayList<String> nomesClasses) {
@@ -19,7 +19,7 @@ public class MatrizConfusao {
         this.quantidadeClasses = nomesClasses.size();
         this.matriz = new int[this.quantidadeClasses][this.quantidadeClasses];
 
-        // Zera a matriz
+        // zera a matriz
         for (int l = 0; l < this.quantidadeClasses; l = l + 1) {
             for (int c = 0; c < this.quantidadeClasses; c = c + 1) {
                 this.matriz[l][c] = 0;
@@ -39,7 +39,7 @@ public class MatrizConfusao {
         return this.matriz[linhaReal][colunaPrevista];
     }
 
-    // Registra uma previsão feita pela rede.
+    // registra uma previsão feita pela rede.
     public void registrarPrevisao(int indiceReal, int indicePrevisto) {
         if (indiceReal >= 0 && indiceReal < this.quantidadeClasses) {
             if (indicePrevisto >= 0 && indicePrevisto < this.quantidadeClasses) {
@@ -48,7 +48,7 @@ public class MatrizConfusao {
         }
     }
 
-    // Retorna a quantidade total de exemplos que realmente pertencem à classe indicada (soma da linha).
+    // retorna a quantidade total de exemplos que realmente pertencem à classe indicada (soma da linha)
     public int getTotalClasseReal(int indiceLinha) {
         int total = 0;
         for (int c = 0; c < this.quantidadeClasses; c = c + 1) {
@@ -57,7 +57,7 @@ public class MatrizConfusao {
         return total;
     }
 
-    // Retorna a quantidade total de exemplos que a rede previu como sendo da classe indicada (soma da coluna).
+    // retorna a quantidade total de exemplos que a rede previu como sendo da classe indicada (soma da coluna)
     public int getTotalClassePrevista(int indiceColuna) {
         int total = 0;
         for (int l = 0; l < this.quantidadeClasses; l = l + 1) {
@@ -66,7 +66,7 @@ public class MatrizConfusao {
         return total;
     }
 
-    // Retorna o total geral de exemplos avaliados.
+    // retorna o total geral de exemplos avaliados
     public int getTotalGeral() {
         int total = 0;
         for (int l = 0; l < this.quantidadeClasses; l = l + 1) {
@@ -77,7 +77,7 @@ public class MatrizConfusao {
         return total;
     }
 
-    // Retorna a soma de acertos (diagonal principal).
+    // retorna a soma de acertos (diagonal principal)
     public int getTotalAcertos() {
         int totalAcertos = 0;
         for (int i = 0; i < this.quantidadeClasses; i = i + 1) {
@@ -86,7 +86,7 @@ public class MatrizConfusao {
         return totalAcertos;
     }
 
-    // Retorna a acurácia geral em porcentagem: (TotalAcertos / TotalGeral) * 100.
+    // retorna a acurácia geral em porcentagem: (TotalAcertos / TotalGeral) * 100
     public double getAcuraciaGeral() {
         double acuracia = 0.0;
         int totalGeral = this.getTotalGeral();
@@ -97,14 +97,14 @@ public class MatrizConfusao {
         return acuracia;
     }
 
-    // Acuracia por classe = acertos da classe / quantidade real daquela classe.
-    // Nesta classificacao multiclasse, equivale numericamente a revocacao (recall).
+    // acuracia por classe = acertos da classe / quantidade real daquela classe
+    // nesta classificacao multiclasse, equivale numericamente a revocacao (recall)
     public double getAcuraciaClasse(int indiceClasse) {
         double acuracia = this.getRevocacaoClasse(indiceClasse);
         return acuracia;
     }
 
-    // Retorna a Precisão da classe em porcentagem: AcertosDaClasse / TotalPrevistoParaAClasse * 100.
+    // retorna a Precisão da classe em porcentagem: AcertosDaClasse / TotalPrevistoParaAClasse * 100
     public double getPrecisaoClasse(int indiceClasse) {
         double precisao = 0.0;
         int totalPrevisto = this.getTotalClassePrevista(indiceClasse);
@@ -115,7 +115,7 @@ public class MatrizConfusao {
         return precisao;
     }
 
-    // Retorna a Revocação (Recall) da classe em porcentagem: AcertosDaClasse / TotalRealDaClasse * 100.
+    // retorna a Revocação (Recall) da classe em porcentagem: AcertosDaClasse / TotalRealDaClasse * 100
     public double getRevocacaoClasse(int indiceClasse) {
         double revocacao = 0.0;
         int totalReal = this.getTotalClasseReal(indiceClasse);

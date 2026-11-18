@@ -1,18 +1,19 @@
 package com.example.backpropagationfx.modelo;
 
-// Representa um único exemplo (linha) da base de dados. Contém os valores numéricos originais, os valores normalizados entre 0 e 1, o rótulo textual da classe e o vetor one-hot correspondente.
+// representa uma única linha da base de dados
+// contém os valores numéricos originais, os valores normalizados entre 0 e 1, o rótulo textual da classe e etc.
 public class ExemploDado {
 
-    // Valores originais lidos do arquivo CSV
+    // valores originais lidos do arquivo CSV
     private double[] atributosOriginais;
 
-    // Valores normalizados entre 0 e 1 pela fórmula Min-Max
+    // valores normalizados entre 0 e 1 pela fórmula Min-Max
     private double[] atributosNormalizados;
 
-    // Nome textual da classe (exemplo: "CA", "CB")
+    // nome textual da classe (tipo "CA", "CB", etc)
     private String rotuloClasse;
 
-    // Vetor codificado (One-Hot) esperado para a saída da rede
+    // vetor codificado (One-Hot) esperado para a saída da rede
     private double[] vetorDesejado;
 
     public ExemploDado(double[] atributosOriginais, String rotuloClasse) {
