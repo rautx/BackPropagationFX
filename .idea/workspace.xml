@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f94cbb66-ff96-49a3-b409-c41bd0d8876b" name="Changes" comment="" />
+    <list default="true" id="f94cbb66-ff96-49a3-b409-c41bd0d8876b" name="Changes" comment="arrumando 3.0.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,6 +85,7 @@
       <updated>1794963454718</updated>
       <workItem from="1794963465416" duration="7383000" />
       <workItem from="1794974170963" duration="1069000" />
+      <workItem from="1795000695876" duration="609000" />
     </task>
     <task id="LOCAL-00001" summary="arrumando o .idea">
       <option name="closed" value="true" />
@@ -108,7 +111,15 @@
       <option name="project" value="LOCAL" />
       <updated>1794969491346</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="arrumando 3.0.">
+      <option name="closed" value="true" />
+      <created>1794975765592</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1794975765592</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,6 +129,7 @@
     <MESSAGE value="arrumando o .idea" />
     <MESSAGE value="arrumando umas fita ai de acuracia e pizzas." />
     <MESSAGE value="arrumando 2." />
-    <option name="LAST_COMMIT_MESSAGE" value="arrumando 2." />
+    <MESSAGE value="arrumando 3.0." />
+    <option name="LAST_COMMIT_MESSAGE" value="arrumando 3.0." />
   </component>
 </project>
