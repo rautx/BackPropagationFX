@@ -25,4 +25,4 @@ Opcao C (Linha de comando no Linux/macOS):
 2. DOCUMENTACAO COMPLETA
 A documentacao detalhada com a comprovacao de ausencia de bibliotecas de IA,
 explicacao das bibliotecas e todas as decisoes de implementacao da rede neural
-esta disponivel no arquivo README.md.
+está disponível no arquivo README.md e relatório dos testes.
