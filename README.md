@@ -1,6 +1,6 @@
-# BackPropagationFX - Rede Neural Perceptron Multicamadas (MLP)
+# BackPropagationFX - Rede MLP
 
-Trabalho pratico da disciplina de Inteligencia Artificial.
+Trabalho prático da disciplina de Inteligencia Artificial.
 
 Alunos: Raul Santos Teixeira e Yuri Lanuti
 Turma: A, 6° Termo, Inteligencia Artificial I
