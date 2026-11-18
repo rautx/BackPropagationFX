@@ -4,8 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f94cbb66-ff96-49a3-b409-c41bd0d8876b" name="Changes" comment="arrumando 3.0.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="f94cbb66-ff96-49a3-b409-c41bd0d8876b" name="Changes" comment="commitando um documento.">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/CalculadoraEstatistica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/CalculadoraEstatistica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ConjuntoDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ConjuntoDados.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExemploDado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExemploDado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExportadorDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/ExportadorDados.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/MatrizConfusao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/MatrizConfusao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/Neuronio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/Neuronio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/OuvinteTreinamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/OuvinteTreinamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/RedeNeuralMLP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/RedeNeuralMLP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/RegistroEpoca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/RegistroEpoca.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/TreinadorMLP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backpropagationfx/modelo/TreinadorMLP.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +94,7 @@
       <updated>1794963454718</updated>
       <workItem from="1794963465416" duration="7383000" />
       <workItem from="1794974170963" duration="1069000" />
-      <workItem from="1795000695876" duration="609000" />
+      <workItem from="1795000695876" duration="2271000" />
     </task>
     <task id="LOCAL-00001" summary="arrumando o .idea">
       <option name="closed" value="true" />
@@ -119,7 +128,15 @@
       <option name="project" value="LOCAL" />
       <updated>1794975765592</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="commitando um documento.">
+      <option name="closed" value="true" />
+      <created>1795004307121</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1795004307121</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,6 +147,7 @@
     <MESSAGE value="arrumando umas fita ai de acuracia e pizzas." />
     <MESSAGE value="arrumando 2." />
     <MESSAGE value="arrumando 3.0." />
-    <option name="LAST_COMMIT_MESSAGE" value="arrumando 3.0." />
+    <MESSAGE value="commitando um documento." />
+    <option name="LAST_COMMIT_MESSAGE" value="commitando um documento." />
   </component>
 </project>
